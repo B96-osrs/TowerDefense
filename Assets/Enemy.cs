@@ -10,14 +10,17 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Enemy : MonoBehaviour
 {
-    public int health = 500;
+    private int maxHealth = 200;
+    private int health = 200;
     public Tilemap tilemap;
     public GameObject enemy;
     private Vector3Int startingTilePosition = new Vector3Int(-9, 3, 0);
     private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     public float moveDelay = 1.0f;
+    public HealthBar healthBar;
     void Start()
     {
+        healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
         StartCoroutine(FindPathBFS());
     }
@@ -26,6 +29,7 @@ public class Enemy : MonoBehaviour
     public void takeDamage(int damage)
     {
         health = health - damage;
+        healthBar.SetHealth(health, maxHealth);
         if (health <= 0)
         {
             Destroy(gameObject);
