@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3Int currentNode = startingTilePosition; 
         Vector3Int endNode = endTilePosition;
-        enemy.transform.position = tilemap.CellToWorld(currentNode) + new Vector3(0.5f, 0.5f, 0);
+        //enemy.transform.position = tilemap.CellToWorld(currentNode) + new Vector3(0.5f, 0.5f, 0);
         HashSet<Vector3Int> visited = new HashSet<Vector3Int>(); //to keep track of visited nodes
         Queue<Vector3Int> q = new Queue<Vector3Int>(); //keep track of nodes to visit
         Dictionary<Vector3Int, Vector3Int> parentMap = new Dictionary<Vector3Int, Vector3Int>(); //to reconstruct the path
