@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 20d5fa17db0e25847bce0c7e57a05ade
+guid: 752fee6a526f835438949ac015137ddb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1493565071483692852
-    second: Black_Tile_0
+      213: -8569160760370426319
+    second: Black_Tile 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Black_Tile_0
+      name: Black_Tile 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 43767bee4853ab410800000000000000
-      internalID: 1493565071483692852
+      spriteID: 13e87e690b9341980800000000000000
+      internalID: -8569160760370426319
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Black_Tile_0: 1493565071483692852
+      Black_Tile 1_0: -8569160760370426319
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
