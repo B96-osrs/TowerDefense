@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        moneyDisplay.text = "Coins: " + money;
+        moneyDisplay.text = money + "";
         hitpointsDisplay.text = hitpoints + "";
     }
 }

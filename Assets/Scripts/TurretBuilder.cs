@@ -56,7 +56,7 @@ public class TurretBuilder : MonoBehaviour
     {
         if (GameManager.GetComponent<GameManager>().money >= 2500)
         {
-            turretPrefab = speedTurret;
+            turretPrefab = megaTurret;
             turretPrefabCost = 2500;
         }
     }
