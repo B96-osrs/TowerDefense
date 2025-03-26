@@ -9,6 +9,7 @@ public class TurretBuilder : MonoBehaviour
     public GameObject speedTurret;
     public GameObject megaTurret;
     private GameObject turretPrefab;
+    private int turretPrefabCost;
     private GameObject GameManager;
     void Start()
     {
@@ -20,6 +21,7 @@ public class TurretBuilder : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && turretPrefab != null)
         {
             Instantiate(turretPrefab, tilemap.GetCellCenterWorld(mousePosition), Quaternion.identity);
+            GameManager.GetComponent<GameManager>().money -= turretPrefabCost;
             turretPrefab = null;
         }
     }
@@ -35,7 +37,7 @@ public class TurretBuilder : MonoBehaviour
         if(GameManager.GetComponent<GameManager>().money >= 500)
         {
             turretPrefab = basicTurret;
-            GameManager.GetComponent<GameManager>().money -= 500;
+            turretPrefabCost = 500;
         }
         
     }
@@ -45,7 +47,7 @@ public class TurretBuilder : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().money >= 1200)
         {
             turretPrefab = speedTurret;
-            GameManager.GetComponent<GameManager>().money -= 1200;
+            turretPrefabCost = 1200;
         }
         
     }
@@ -55,7 +57,7 @@ public class TurretBuilder : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().money >= 2500)
         {
             turretPrefab = speedTurret;
-            GameManager.GetComponent<GameManager>().money -= 2500;
+            turretPrefabCost = 2500;
         }
     }
 }
