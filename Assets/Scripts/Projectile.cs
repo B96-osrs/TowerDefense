@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
     private Transform target;
     public Rigidbody2D rb;
     public float speed = 10f;
-    private float damage = 50f;
+    public float damage = 50f;
 
     public void SetTarget(Transform target)
     {
@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Projectile triggered with: " + other.gameObject.name);
+        //Debug.Log("Projectile triggered with: " + other.gameObject.name);
         target.GetComponent<Enemy>().takeDamage((int)damage);
         Destroy(gameObject);
     }
