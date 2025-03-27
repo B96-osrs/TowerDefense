@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI hitpointsDisplay;
     public TextMeshProUGUI levelDisplay;
     public TextMeshProUGUI enemiesKilledDisplay;
+    public GameObject gameOverPanel;
     
 
     void Awake()
@@ -41,6 +42,11 @@ public class GameManager : MonoBehaviour
         hitpointsDisplay.text = hitpoints + "";
         levelDisplay.text = currentLevel + "";
         enemiesKilledDisplay.text = enemiesKilled + "";
+
+        if(hitpoints <= 0)
+        {
+            gameOver();
+        }
     }
 
     public void StartGame()
@@ -77,5 +83,17 @@ public class GameManager : MonoBehaviour
     public void goToMenu()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void gameOver()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+
+    public void newGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }
