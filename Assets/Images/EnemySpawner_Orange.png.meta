@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b7cc4b36e979fd547aa358bc468626f7
+guid: 896155430b28f9449a62257860162951
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6462689953898519580
-    second: ImpactEffect_0
+      213: 6566539970673952023
+    second: EnemySpawner_Orange_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ImpactEffect_0
+      name: EnemySpawner_Orange_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 13
-        width: 14
-        height: 12
+        x: 0
+        y: 0
+        width: 47
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1c5b93b54610b950800000000000000
-      internalID: 6462689953898519580
+      spriteID: 715cc63ff49012b50800000000000000
+      internalID: 6566539970673952023
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      ImpactEffect_0: 6462689953898519580
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

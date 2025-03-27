@@ -3,14 +3,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public GameObject enemySpawnerPrefab;
+
     public int level = 1;
     public int hitpoints = 20;
     public int money = 500;
+    private int currentLevel = 0;
+    [HideInInspector]
+    public int enemiesKilled = 0;
+
+    public static GameManager Instance;
+    public GameObject enemySpawnerPurple;
+    public GameObject enemySpawnerYellow;
+    public GameObject enemySpawnerRed;
+    public GameObject enemySpawnerGreen;
+    public GameObject enemySpawnerOrange;
+
     private EnemySpawner enemySpawner;
     public TextMeshProUGUI moneyDisplay;
     public TextMeshProUGUI hitpointsDisplay;
+    public TextMeshProUGUI levelDisplay;
+    public TextMeshProUGUI enemiesKilledDisplay;
+    
 
     void Awake()
     {
@@ -25,10 +38,37 @@ public class GameManager : MonoBehaviour
     {
         moneyDisplay.text = money + "";
         hitpointsDisplay.text = hitpoints + "";
+        levelDisplay.text = currentLevel + "";
+        enemiesKilledDisplay.text = enemiesKilled + "";
     }
 
     public void StartGame()
     {
-        Instantiate(enemySpawnerPrefab).GetComponent<EnemySpawner>();
+        switch(currentLevel)
+        {
+            case 0:
+            enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
+                currentLevel++;
+                break;
+        case 1:
+            enemySpawner = Instantiate(enemySpawnerYellow).GetComponent<EnemySpawner>();
+                currentLevel++;
+                break;
+        case 2:
+            enemySpawner = Instantiate(enemySpawnerRed).GetComponent<EnemySpawner>();
+                currentLevel++;
+                break;
+        case 3:
+            enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
+                currentLevel++;
+                break;
+        case 4:
+            enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
+                currentLevel++;
+                break;
+
+            default:
+                break;
+        }
     }
 }

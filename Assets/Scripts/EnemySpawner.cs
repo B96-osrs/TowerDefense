@@ -5,7 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     private int amountOfEnemies = 0;
-    private int maxEnemies = 10;
+    public int maxEnemies;
     public float spawnRate;
     private float timer = 0;
     private Tilemap tilemap;

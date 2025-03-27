@@ -11,8 +11,9 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Enemy : MonoBehaviour
 {
-    private int maxHealth = 200;
-    private int health = 200;
+    public int maxHealth;
+    public int killMoney;
+    private int health;
     public Tilemap tilemap;
     public GameObject enemy;
     private Vector3Int startingTilePosition = new Vector3Int(-9, 3, 0);
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        health = maxHealth;
         GameManager = GameObject.Find("GameManager");
         healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
@@ -37,7 +39,8 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            GameManager.GetComponent<GameManager>().money += 50;
+            GameManager.GetComponent<GameManager>().money += killMoney;
+            GameManager.GetComponent<GameManager>().enemiesKilled++;
             Debug.Log(GameManager.GetComponent<GameManager>().money);
         }
         //Debug.Log("Enemy HP: " + health);

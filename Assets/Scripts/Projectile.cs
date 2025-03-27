@@ -23,6 +23,10 @@ public class Projectile : MonoBehaviour
     {
         //Debug.Log("Projectile triggered with: " + other.gameObject.name);
         target.GetComponent<Enemy>().takeDamage((int)damage);
-        Destroy(gameObject);
+        if(gameObject != null)
+        {
+            Destroy(gameObject);
+        }
+            
     }
 }
