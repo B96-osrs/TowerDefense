@@ -1,6 +1,7 @@
 **Overview**
 
-This is the final project for Coders.Bay, a Tower Defense game developed in Unity using C#. The project was completed within a three-week timeframe and features strategic turret placement, enemy pathfinding, and multiple levels of increasing difficulty.
+This is the final project for Coders.Bay, a Tower Defense game developed in Unity using C#. 
+The project was completed within a three-week timeframe and features strategic turret placement, enemy pathfinding, and multiple levels of increasing difficulty.
 
 **Features**
 
