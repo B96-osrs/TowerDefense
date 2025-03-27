@@ -4,14 +4,15 @@ using UnityEngine.Tilemaps;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public Tilemap tilemap;
     private int amountOfEnemies = 0;
     private int maxEnemies = 10;
     public float spawnRate;
     private float timer = 0;
+    private Tilemap tilemap;
 
     void Start()
     {
+        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         spawnEnemy();
     }
 
@@ -36,6 +37,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void spawnEnemy()
     {
+        Debug.Log("Enemy Spawned at: " + transform.position);
         GameObject newEnemy = Instantiate(enemyPrefab, new Vector3Int(-9, 3, 0) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
         if (enemyScript != null)

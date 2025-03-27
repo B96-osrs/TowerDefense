@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 25184620b83705f41978cf24a8444327
+guid: bc018990c35b507419ad0a3fd456a6f5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7487658079207348865
-    second: Mega_Turret_Gun 1_0
+      213: 8300585882725260701
+    second: Mega_Turret_Gun_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mega_Turret_Gun 1_0
+      name: Mega_Turret_Gun_0
       rect:
         serializedVersion: 2
         x: 8
-        y: 1
+        y: 0
         width: 15
-        height: 28
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f752345f5ae761890800000000000000
-      internalID: -7487658079207348865
+      spriteID: d9d1677c1ea913370800000000000000
+      internalID: 8300585882725260701
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mega_Turret_Gun 1_0: -7487658079207348865
+      Mega_Turret_Gun_0: 8300585882725260701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
