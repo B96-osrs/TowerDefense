@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -70,5 +71,11 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+
+    public void goToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
