@@ -142,7 +142,7 @@ public class Enemy : MonoBehaviour
 
 
             float journeyLength = Vector3.Distance(currentPosition, nextPosition);
-            float moveDuration = journeyLength / 2f; 
+            float moveDuration = journeyLength / 2.8f; 
             float timeElapsed = 0f;
 
             while (timeElapsed < moveDuration)

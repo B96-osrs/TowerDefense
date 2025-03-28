@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour
                 break;
 
             default:
+                enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
+                enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
+                enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
                 break;
         }
     }
@@ -92,7 +95,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void newGame()
+    public void newGame()    
     {
         SceneManager.LoadScene("Game");
     }

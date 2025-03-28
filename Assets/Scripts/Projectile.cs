@@ -22,11 +22,10 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Projectile triggered with: " + other.gameObject.name);
+        if(!target) return;
         target.GetComponent<Enemy>().takeDamage((int)damage);
-        if(gameObject != null)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
+
             
     }
 }
