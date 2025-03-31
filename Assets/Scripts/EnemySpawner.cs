@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    private int amountOfEnemies = 0;
+    private int amountOfEnemies;
     public int maxEnemies;
     public float spawnRate;
     private float timer = 0;
@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        amountOfEnemies = 0;
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         spawnEnemy();
     }
@@ -19,20 +20,19 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
 
-            if (timer < spawnRate)
-            {
-                timer = timer + Time.deltaTime;
-            }
-            else if (amountOfEnemies < maxEnemies)
-            {
-                spawnEnemy();
-                timer = 0;
-                amountOfEnemies++;
-            }
-        else
+        if (timer < spawnRate)
         {
+            timer = timer + Time.deltaTime;
 
         }
+        else if (amountOfEnemies < maxEnemies)
+        {
+            spawnEnemy();
+            timer = 0;
+            amountOfEnemies++;
+
+        }
+
     }
 
     private void spawnEnemy()
