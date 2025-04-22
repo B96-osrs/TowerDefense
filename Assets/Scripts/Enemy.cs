@@ -41,15 +41,14 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             GameManager.GetComponent<GameManager>().money += killMoney;
             GameManager.GetComponent<GameManager>().enemiesKilled++;
-            Debug.Log(GameManager.GetComponent<GameManager>().money);
         }
-        //Debug.Log("Enemy HP: " + health);
     }
 
 
     IEnumerator FindPathBFS()
     {
-        Vector3Int currentNode = startingTilePosition; 
+        int loopCounter = 0;
+        Vector3Int currentNode = startingTilePosition;
         Vector3Int endNode = endTilePosition;
         HashSet<Vector3Int> visited = new HashSet<Vector3Int>(); //to keep track of visited nodes
         Queue<Vector3Int> q = new Queue<Vector3Int>(); //keep track of nodes to visit
@@ -70,7 +69,7 @@ public class Enemy : MonoBehaviour
                 yield break;
             }
 
-            //check the tile at top
+            
             Vector3Int topNode = new Vector3Int(currentNode.x, currentNode.y + 1, 0);
             Vector3Int rightNode = new Vector3Int(currentNode.x + 1, currentNode.y, 0);
             Vector3Int bottomNode = new Vector3Int(currentNode.x, currentNode.y - 1, 0);
@@ -112,7 +111,8 @@ public class Enemy : MonoBehaviour
                 visited.Add(leftNode);
                 parentMap[leftNode] = currentNode;
             }
-
+            loopCounter++;
+            Debug.Log("Loop counter: " + loopCounter);
         } //while
     } //FindPathBFS
 
@@ -123,11 +123,11 @@ public class Enemy : MonoBehaviour
         while (current != startingTilePosition)
         {
             path.Add(current);
-            current = parentMap[current]; 
+            current = parentMap[current];
         }
 
-        path.Add(startingTilePosition); 
-        path.Reverse(); 
+        path.Add(startingTilePosition);
+        path.Reverse();
         Debug.Log(path.ToArray());
         return path;
     }
@@ -142,21 +142,21 @@ public class Enemy : MonoBehaviour
 
 
             float journeyLength = Vector3.Distance(currentPosition, nextPosition);
-            float moveDuration = journeyLength / 2.8f; 
+            float moveDuration = journeyLength / 2.8f;
             float timeElapsed = 0f;
 
             while (timeElapsed < moveDuration)
             {
                 transform.position = Vector3.Lerp(currentPosition, nextPosition, timeElapsed / moveDuration);
-                timeElapsed += Time.deltaTime; 
-                yield return null; 
+                timeElapsed += Time.deltaTime;
+                yield return null;
             }
             yield return new WaitForSeconds(0.0f);
             transform.position = nextPosition;
         }
 
 
-        if(tilemap.WorldToCell(transform.position) == endTilePosition)
+        if (tilemap.WorldToCell(transform.position) == endTilePosition)
         {
             GameManager.GetComponent<GameManager>().hitpoints -= 1;
             Debug.Log("enemy escaped" + GameManager.GetComponent<GameManager>().hitpoints);

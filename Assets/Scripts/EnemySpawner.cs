@@ -11,10 +11,10 @@ public class EnemySpawner : MonoBehaviour
     private Tilemap tilemap;
 
     void Start()
-    {
-        amountOfEnemies = 0;
+    {     
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         spawnEnemy();
+        amountOfEnemies = 1;
     }
 
     private void Update()
@@ -43,6 +43,11 @@ public class EnemySpawner : MonoBehaviour
         if (enemyScript != null)
         {
             enemyScript.tilemap = tilemap;
+        }
+        Enemy_2 enemyScript_2 = newEnemy.GetComponent<Enemy_2>();
+        if (enemyScript_2 != null)
+        {
+            enemyScript_2.tilemap = tilemap;
         }
     }
 

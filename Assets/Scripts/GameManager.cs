@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI levelDisplay;
     public TextMeshProUGUI enemiesKilledDisplay;
     public GameObject gameOverPanel;
-    
+
 
     void Awake()
     {
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         levelDisplay.text = currentLevel + "";
         enemiesKilledDisplay.text = enemiesKilled + "";
 
-        if(hitpoints <= 0)
+        if (hitpoints <= 0)
         {
             gameOver();
         }
@@ -52,33 +53,39 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        switch(currentLevel)
+        switch (currentLevel)
         {
             case 0:
-            enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
+                enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;
-        case 1:
-            enemySpawner = Instantiate(enemySpawnerYellow).GetComponent<EnemySpawner>();
+            case 1:
+                enemySpawner = Instantiate(enemySpawnerYellow).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;
-        case 2:
-            enemySpawner = Instantiate(enemySpawnerRed).GetComponent<EnemySpawner>();
+            case 2:
+                enemySpawner = Instantiate(enemySpawnerRed).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;
-        case 3:
-            enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
+            case 3:
+                enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;
-        case 4:
-            enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
+            case 4:
+                enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;
 
             default:
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies)
+                {
+                    enemy.GetComponent<Enemy>().maxHealth = (int) Math.Floor(enemy.GetComponent<Enemy>().maxHealth * 1.1);
+                }
                 enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
                 enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
                 enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
+                currentLevel++;
                 break;
         }
     }
@@ -96,7 +103,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void newGame()    
+    public void newGame()
     {
         SceneManager.LoadScene("Game");
     }
