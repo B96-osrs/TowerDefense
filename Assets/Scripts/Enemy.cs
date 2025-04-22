@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     public void takeDamage(int damage)
     {
         health = health - damage;
+        Debug.Log("Enemy HealthBar reference: " + healthBar);
         healthBar.SetHealth(health, maxHealth);
         if (health <= 0)
         {
@@ -139,8 +140,6 @@ public class Enemy : MonoBehaviour
 
             Vector3 currentPosition = tilemap.CellToWorld(path[i]) + new Vector3(0.5f, 0.5f, 0);
             Vector3 nextPosition = tilemap.CellToWorld(path[i + 1]) + new Vector3(0.5f, 0.5f, 0);
-
-
             float journeyLength = Vector3.Distance(currentPosition, nextPosition);
             float moveDuration = journeyLength / 2.8f;
             float timeElapsed = 0f;

@@ -14,10 +14,9 @@ public class HealthBar : MonoBehaviour
         slider.transform.position = Camera.main.WorldToScreenPoint(transform.parent.position) + offset;
     }
 
-
     public void SetHealth(float health, float maxHealth)
     {
-        slider.gameObject.SetActive(health < maxHealth);
+        Debug.Log("SetHealth called with health: " + health + " and maxHealth: " + maxHealth);
         slider.value = health;
         slider.maxValue = maxHealth;
         slider.fillRect.GetComponentInChildren<UnityEngine.UI.Image>().color = Color.Lerp(low, high, slider.normalizedValue);

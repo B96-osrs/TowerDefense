@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class Enemy_2 : MonoBehaviour
+public class Enemy_Left_Only : MonoBehaviour
 {
     public int maxHealth;
     public int killMoney;
@@ -22,7 +23,8 @@ public class Enemy_2 : MonoBehaviour
     private GameObject GameManager;
     private String direction = "right";
     private Vector3Int currentNode = new Vector3Int(-10, 3, 0);
-    private Boolean reachedEnd = false;
+    Vector3 targetPosition;
+    public float moveSpeed = 2f;
 
     void Start()
     {
@@ -30,7 +32,17 @@ public class Enemy_2 : MonoBehaviour
         GameManager = GameObject.Find("GameManager");
         healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
-        InvokeRepeating("Traverse", 0.0f, moveDelay);
+        targetPosition = tilemap.GetCellCenterWorld(currentNode);
+    }
+
+    void Update()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            Traverse();
+        }
     }
 
 
@@ -38,11 +50,9 @@ public class Enemy_2 : MonoBehaviour
     {
         if (tilemap.WorldToCell(transform.position) == endTilePosition)
         {
-            reachedEnd = true;
             GameManager.GetComponent<GameManager>().hitpoints -= 1;
             Debug.Log("enemy escaped" + GameManager.GetComponent<GameManager>().hitpoints);
             Destroy(gameObject);
-
         }
         transform.position = tilemap.GetCellCenterWorld(currentNode);
         Vector3Int topNode = new Vector3Int(currentNode.x, currentNode.y + 1, 0);
@@ -53,124 +63,107 @@ public class Enemy_2 : MonoBehaviour
 
         if (direction.Equals("right"))
         {
-            if ((tilemap.GetTile(topNode) != null && tilemap.GetTile(topNode).name == "White_Tile_0"))
+            if (isWalkable(topNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(topNode);
                 currentNode = topNode;
                 direction = "top";
             }
-            else if ((tilemap.GetTile(rightNode) != null && tilemap.GetTile(rightNode).name == "White_Tile_0"))
+            else if (isWalkable(rightNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(rightNode);
                 currentNode = rightNode;
                 direction = "right";
             }
-            else if (tilemap.GetTile(bottomNode) != null && tilemap.GetTile(bottomNode).name == "White_Tile_0")
+            else if (isWalkable(bottomNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(bottomNode);
                 currentNode = bottomNode;
                 direction = "bottom";
             }
-            else if (tilemap.GetTile(leftNode) != null && tilemap.GetTile(leftNode).name == "White_Tile_0")
+            else if (isWalkable(leftNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(leftNode);
                 currentNode = leftNode;
                 direction = "left";
             }
-            Debug.Log("Current Node: " + currentNode);
-            Debug.Log("Direction: " + direction);
         }
-
         else if (direction.Equals("top"))
         {
-            if (tilemap.GetTile(leftNode) != null && tilemap.GetTile(leftNode).name == "White_Tile_0")
+            if (isWalkable(leftNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(leftNode);
                 currentNode = leftNode;
                 direction = "left";
             }
-            else if ((tilemap.GetTile(topNode) != null && tilemap.GetTile(topNode).name == "White_Tile_0"))
+            else if (isWalkable(topNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(topNode);
                 currentNode = topNode;
                 direction = "top";
             }
-            else if (tilemap.GetTile(rightNode) != null && tilemap.GetTile(rightNode).name == "White_Tile_0")
+            else if (isWalkable(rightNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(rightNode);
                 currentNode = rightNode;
                 direction = "right";
             }
-            else if (tilemap.GetTile(bottomNode) != null && tilemap.GetTile(bottomNode).name == "White_Tile_0")
+            else if (isWalkable(bottomNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(bottomNode);
                 currentNode = bottomNode;
                 direction = "bottom";
             }
         }
         else if (direction.Equals("left"))
         {
-            if (tilemap.GetTile(bottomNode) != null && tilemap.GetTile(bottomNode).name == "White_Tile_0")
+            if (isWalkable(bottomNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(bottomNode);
                 currentNode = bottomNode;
                 direction = "bottom";
             }
-            else if (tilemap.GetTile(leftNode) != null && tilemap.GetTile(leftNode).name == "White_Tile_0")
+            else if (isWalkable(leftNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(leftNode);
                 currentNode = leftNode;
                 direction = "left";
             }
 
-            else if (tilemap.GetTile(topNode) != null && tilemap.GetTile(topNode).name == "White_Tile_0")
+            else if (isWalkable(topNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(topNode);
                 currentNode = topNode;
                 direction = "top";
             }
-            else if (tilemap.GetTile(rightNode) != null && tilemap.GetTile(rightNode).name == "White_Tile_0")
+            else if (isWalkable(rightNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(rightNode);
                 currentNode = rightNode;
                 direction = "right";
             }
         }
-
         else if (direction.Equals("bottom"))
         {
-            if (tilemap.GetTile(rightNode) != null && tilemap.GetTile(rightNode).name == "White_Tile_0")
+            if (isWalkable(rightNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(rightNode);
                 currentNode = rightNode;
                 direction = "right";
             }
-            else if (tilemap.GetTile(bottomNode) != null && tilemap.GetTile(bottomNode).name == "White_Tile_0")
+            else if (isWalkable(bottomNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(bottomNode);
                 currentNode = bottomNode;
                 direction = "bottom";
             }
-            else if (tilemap.GetTile(leftNode) != null && tilemap.GetTile(leftNode).name == "White_Tile_0")
+            else if (isWalkable(leftNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(leftNode);
                 currentNode = leftNode;
                 direction = "left";
             }
 
-            else if (tilemap.GetTile(topNode) != null && tilemap.GetTile(topNode).name == "White_Tile_0")
+            else if (isWalkable(topNode))
             {
-                transform.position = tilemap.GetCellCenterWorld(topNode);
                 currentNode = topNode;
                 direction = "top";
             }
         }
+        targetPosition = tilemap.GetCellCenterWorld(currentNode);
     }
 
 
     public void takeDamage(int damage)
     {
+        Debug.Log("Enemy took damage: " + damage);
         health = health - damage;
+        Debug.Log("Enemy_Left_Only HealthBar reference: " + healthBar);
         healthBar.SetHealth(health, maxHealth);
         if (health <= 0)
         {
@@ -179,4 +172,16 @@ public class Enemy_2 : MonoBehaviour
             GameManager.GetComponent<GameManager>().enemiesKilled++;
         }
     }
+
+
+    private bool isWalkable(Vector3Int node)
+    {
+        TileBase tile = tilemap.GetTile(node);
+        if (tile != null && tile.name == "White_Tile_0")
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -44,10 +44,10 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyScript.tilemap = tilemap;
         }
-        Enemy_2 enemyScript_2 = newEnemy.GetComponent<Enemy_2>();
-        if (enemyScript_2 != null)
+        Enemy_Left_Only enemyScriptLeftOnly = newEnemy.GetComponent<Enemy_Left_Only>();
+        if (enemyScriptLeftOnly != null)
         {
-            enemyScript_2.tilemap = tilemap;
+            enemyScriptLeftOnly.tilemap = tilemap;
         }
     }
 

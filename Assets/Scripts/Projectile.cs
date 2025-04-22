@@ -21,11 +21,21 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("Projectile triggered with: " + other.gameObject.name);
         if(!target) return;
-        target.GetComponent<Enemy>().takeDamage((int)damage);
+        //Debug.Log(other);
+        //target.GetComponent<Enemy>().takeDamage((int)damage);
+        //Destroy(gameObject);
+        //Debug.Log(other.name);
+        Debug.Log(target);
+        if(target.GetComponent<Enemy>() != null)
+        {
+            target.GetComponent<Enemy>().takeDamage((int)damage);
+            Debug.Log("Hit enemy");
+        } else if (target.GetComponent<Enemy_Left_Only>() != null)
+        {
+            target.GetComponent<Enemy_Left_Only>().takeDamage((int)damage);
+            Debug.Log("Hit enemy left only");
+        }
         Destroy(gameObject);
-
-            
     }
 }
