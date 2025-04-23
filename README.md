@@ -1,22 +1,21 @@
 **Overview**<br>
 This is the final project for Coders.Bay, a Tower Defense game developed in Unity using C#. <br>
-The project was completed within a three-week timeframe and features strategic turret placement, enemy pathfinding, and multiple levels of increasing difficulty.<br>
+The project was completed within a four-week timeframe and features strategic turret placement, enemy pathfinding, and multiple levels of increasing difficulty.<br>
 
 **Features**<br>
-Five unique levels, each with new enemy waves<br>
+Five levels, each with new enemies<br>
 Three different turret types with distinct capabilities<br>
-Enemy pathfinding implemented using the Breadth-First Search (BFS) algorithm<br>
+Enemy pathfinding implemented using BFS, Hand-on-Wall Rule (Left and Right)
 Wave-based enemy spawning with increasing difficulty<br>
 
 **Technologies**<br>
 Unity Engine for game development<br>
-C# for core programming logic<br>
-Breadth-First Search (BFS) for enemy pathfinding<br>
+C# for programming logic<br><br>
 Unity UI System for menus and in-game UI<br>
 
 **How to Play**<br>
 Press the start button to begin the game.<br>
-Select turrets and place them strategically along the path.<br>
-Enemies follow a predetermined path based on BFS pathfinding.<br>
+Select turrets and place them along the dark walls.<br>
+Enemy pathfinding gets increasingly better<br>
 You start with 20 hitpoints, each surviving enemy decreases your hitpoints by 1.<br>
-Earn coins to buy better turrets.<br>
+Each kill gives you coins which you can spend in the shop<br>
