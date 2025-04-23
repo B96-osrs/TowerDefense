@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9c8a43c35ae3c274b86677432ba8080d
+guid: 46e21876d2645664d8509bcba6e6134c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7597947808367114690
-    second: Speed_Turret_Base 1_0
+      213: 4051241469026724429
+    second: Mega_Turret_Base_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Speed_Turret_Base 1_0
+      name: Mega_Turret_Base_0
       rect:
         serializedVersion: 2
         x: 3
-        y: 13
-        width: 26
-        height: 18
+        y: 1
+        width: 27
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2c9fdaba645517960800000000000000
-      internalID: 7597947808367114690
+      spriteID: d4a6ba4d6a6e83830800000000000000
+      internalID: 4051241469026724429
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Speed_Turret_Base 1_0: 7597947808367114690
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
