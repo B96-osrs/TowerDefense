@@ -22,10 +22,6 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(!target) return;
-        //Debug.Log(other);
-        //target.GetComponent<Enemy>().takeDamage((int)damage);
-        //Destroy(gameObject);
-        //Debug.Log(other.name);
         Debug.Log(target);
         if(target.GetComponent<Enemy>() != null)
         {
@@ -39,6 +35,11 @@ public class Projectile : MonoBehaviour
         else if (target.GetComponent<Enemy_Right_Only>() != null)
         {
             target.GetComponent<Enemy_Right_Only>().takeDamage((int)damage);
+            Debug.Log("Hit enemy right only");
+        }
+        else if (target.GetComponent<Enemy_Random>() != null)
+        {
+            target.GetComponent<Enemy_Random>().takeDamage((int)damage);
             Debug.Log("Hit enemy right only");
         }
         Destroy(gameObject);
