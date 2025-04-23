@@ -36,6 +36,11 @@ public class Projectile : MonoBehaviour
             target.GetComponent<Enemy_Left_Only>().takeDamage((int)damage);
             Debug.Log("Hit enemy left only");
         }
+        else if (target.GetComponent<Enemy_Right_Only>() != null)
+        {
+            target.GetComponent<Enemy_Right_Only>().takeDamage((int)damage);
+            Debug.Log("Hit enemy right only");
+        }
         Destroy(gameObject);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class Enemy_Left_Only : MonoBehaviour
+public class Enemy_Right_Only : MonoBehaviour
 {
     public int maxHealth;
     public int killMoney;
@@ -28,7 +28,6 @@ public class Enemy_Left_Only : MonoBehaviour
         Debug.Log("EnemyMovement started");
         targetPosition = tilemap.GetCellCenterWorld(currentNode);
     }
-
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -57,20 +56,20 @@ public class Enemy_Left_Only : MonoBehaviour
 
         if (direction.Equals("right"))
         {
-            if (isWalkable(topNode))
+            if (isWalkable(bottomNode))
             {
-                currentNode = topNode;
-                direction = "top";
+                currentNode = bottomNode;
+                direction = "bottom";
             }
             else if (isWalkable(rightNode))
             {
                 currentNode = rightNode;
                 direction = "right";
             }
-            else if (isWalkable(bottomNode))
+            else if (isWalkable(topNode))
             {
-                currentNode = bottomNode;
-                direction = "bottom";
+                currentNode = topNode;
+                direction = "top";
             }
             else if (isWalkable(leftNode))
             {
@@ -80,20 +79,20 @@ public class Enemy_Left_Only : MonoBehaviour
         }
         else if (direction.Equals("top"))
         {
-            if (isWalkable(leftNode))
+            if (isWalkable(rightNode))
             {
-                currentNode = leftNode;
-                direction = "left";
+                currentNode = rightNode;
+                direction = "right";
             }
             else if (isWalkable(topNode))
             {
                 currentNode = topNode;
                 direction = "top";
             }
-            else if (isWalkable(rightNode))
+            else if (isWalkable(leftNode))
             {
-                currentNode = rightNode;
-                direction = "right";
+                currentNode = leftNode;
+                direction = "left";
             }
             else if (isWalkable(bottomNode))
             {
@@ -103,21 +102,20 @@ public class Enemy_Left_Only : MonoBehaviour
         }
         else if (direction.Equals("left"))
         {
-            if (isWalkable(bottomNode))
+            if (isWalkable(topNode))
             {
-                currentNode = bottomNode;
-                direction = "bottom";
+                currentNode = topNode;
+                direction = "top";
             }
             else if (isWalkable(leftNode))
             {
                 currentNode = leftNode;
                 direction = "left";
             }
-
-            else if (isWalkable(topNode))
+            else if (isWalkable(bottomNode))
             {
-                currentNode = topNode;
-                direction = "top";
+                currentNode = bottomNode;
+                direction = "bottom";
             }
             else if (isWalkable(rightNode))
             {
@@ -127,22 +125,21 @@ public class Enemy_Left_Only : MonoBehaviour
         }
         else if (direction.Equals("bottom"))
         {
-            if (isWalkable(rightNode))
+            if (isWalkable(leftNode))
             {
-                currentNode = rightNode;
-                direction = "right";
+                currentNode = leftNode;
+                direction = "left";
             }
             else if (isWalkable(bottomNode))
             {
                 currentNode = bottomNode;
                 direction = "bottom";
             }
-            else if (isWalkable(leftNode))
+            else if (isWalkable(rightNode))
             {
-                currentNode = leftNode;
-                direction = "left";
+                currentNode = rightNode;
+                direction = "right";
             }
-
             else if (isWalkable(topNode))
             {
                 currentNode = topNode;
@@ -157,7 +154,7 @@ public class Enemy_Left_Only : MonoBehaviour
     {
         Debug.Log("Enemy took damage: " + damage);
         health = health - damage;
-        Debug.Log("Enemy_Left_Only HealthBar reference: " + healthBar);
+        Debug.Log("Enemy_Right_Only HealthBar reference: " + healthBar);
         healthBar.SetHealth(health, maxHealth);
         if (health <= 0)
         {

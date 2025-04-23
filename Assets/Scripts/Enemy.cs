@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -19,11 +14,12 @@ public class Enemy : MonoBehaviour
     private Vector3Int startingTilePosition = new Vector3Int(-9, 3, 0);
     private Vector3Int endTilePosition = new Vector3Int(10, -3, 0);
     public float moveDelay = 1.0f;
-    public HealthBar healthBar;
+    private HealthBar healthBar;
     private GameObject GameManager;
 
     void Start()
     {
+        healthBar = GetComponentInChildren<HealthBar>();
         health = maxHealth;
         GameManager = GameObject.Find("GameManager");
         healthBar.SetHealth(health, maxHealth);

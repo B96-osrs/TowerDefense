@@ -42,12 +42,20 @@ public class EnemySpawner : MonoBehaviour
         Enemy enemyScript = newEnemy.GetComponent<Enemy>();
         if (enemyScript != null)
         {
+            Debug.Log("Enemy script found");
             enemyScript.tilemap = tilemap;
         }
         Enemy_Left_Only enemyScriptLeftOnly = newEnemy.GetComponent<Enemy_Left_Only>();
         if (enemyScriptLeftOnly != null)
         {
+            Debug.Log("Enemy_Left_Only script found");
             enemyScriptLeftOnly.tilemap = tilemap;
+        }
+        Enemy_Right_Only enemyScriptRightOnly = newEnemy.GetComponent<Enemy_Right_Only>();
+        if (enemyScriptRightOnly != null)
+        {
+            Debug.Log("Enemy_Left_Only script found");
+            enemyScriptRightOnly.tilemap = tilemap;
         }
     }
 
