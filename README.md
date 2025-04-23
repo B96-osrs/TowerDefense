@@ -10,7 +10,7 @@ Wave-based enemy spawning with increasing difficulty<br>
 
 **Technologies**<br>
 Unity Engine for game development<br>
-C# for programming logic<br><br>
+C# for programming logic<br>
 Unity UI System for menus and in-game UI<br>
 
 **How to Play**<br>
