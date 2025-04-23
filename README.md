@@ -5,7 +5,7 @@ The project was completed within a four-week timeframe and features strategic tu
 **Features**<br>
 Five levels, each with new enemies<br>
 Three different turret types with distinct capabilities<br>
-Enemy pathfinding implemented using BFS, Hand-on-Wall Rule (Left and Right)
+Enemy pathfinding implemented using BFS, Hand-on-Wall Rule (Left and Right)<br>
 Wave-based enemy spawning with increasing difficulty<br>
 
 **Technologies**<br>
