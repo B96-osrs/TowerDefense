@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7548577328872582763}
   - component: {fileID: 9081340158700414592}
   m_Layer: 0
-  m_Name: EnemySpawner_Test
+  m_Name: Test_Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: f0f548dfc5995a34184e0601e432ec3d, type: 3}
   m_NavMeshLayer: 0
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b13120b7f1b5d24cb1113e252c62df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3030494173107284703, guid: 595b91ed3a7fe734b9647f02148be236, type: 3}
-  maxEnemies: 35
+  enemyPrefab: {fileID: 3030494173107284703, guid: 27e2126cc2622904895186240fc22452, type: 3}
+  maxEnemies: 1
   spawnRate: 0.5
