@@ -198,8 +198,8 @@ GameObject:
   - component: {fileID: 7805853846964042249}
   - component: {fileID: 476482548717674852}
   - component: {fileID: 8280107205901409732}
-  - component: {fileID: 2695726792927712948}
   - component: {fileID: 3829487608823223996}
+  - component: {fileID: 8322101832017613730}
   m_Layer: 6
   m_Name: Enemy_Orange
   m_TagString: Enemy
@@ -341,24 +341,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &2695726792927712948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7858707109174809110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b562818ef011a246b83e1298e701a4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 400
-  killMoney: 150
-  tilemap: {fileID: 0}
-  enemy: {fileID: 7858707109174809110}
-  moveDelay: 0.1
-  healthBar: {fileID: 5053257207443520398}
 --- !u!114 &3829487608823223996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +393,24 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &8322101832017613730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7858707109174809110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450d052932623144a889aefa5fa5a743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 500
+  killMoney: 150
+  tilemap: {fileID: 0}
+  enemy: {fileID: 7858707109174809110}
+  moveDelay: 1
+  moveSpeed: 2
 --- !u!1 &8711760555837486266
 GameObject:
   m_ObjectHideFlags: 0

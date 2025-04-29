@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6766458127487556343}
   - component: {fileID: 4057989923641816025}
   - component: {fileID: 4253227980075880741}
-  - component: {fileID: -3442789831095173173}
   - component: {fileID: 7841467809059616521}
+  - component: {fileID: -3577080581433964429}
   m_Layer: 6
   m_Name: Enemy_Purple
   m_TagString: Enemy
@@ -155,25 +155,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-3442789831095173173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8837034179217014111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a06c7f716315c94bb0b3b850b1c5c55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 110
-  killMoney: 50
-  tilemap: {fileID: 0}
-  enemy: {fileID: 8837034179217014111}
-  moveDelay: 1
-  healthBar: {fileID: 9039117020082119833, guid: 81b8cb896e770fd44a5f610de6d96b60, type: 3}
-  moveSpeed: 2
 --- !u!114 &7841467809059616521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +207,24 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &-3577080581433964429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8837034179217014111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faefd342315fa164bbdd7da033b9b53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 110
+  killMoney: 50
+  tilemap: {fileID: 0}
+  enemy: {fileID: 8837034179217014111}
+  moveDelay: 1
+  moveSpeed: 2
 --- !u!1001 &8084718584602834581
 PrefabInstance:
   m_ObjectHideFlags: 0
