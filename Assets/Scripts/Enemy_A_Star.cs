@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -18,7 +19,7 @@ public class Enemy_A_Star : MonoBehaviour
     private GameObject GameManager;
     Vector3 targetPosition;
     public float moveSpeed = 2f;
-    private Vector3Int endTilePosition = new Vector3Int(10, -3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
     private Node startNode = new Node((new Vector3Int(-9, 3, 0)), null);
 
@@ -30,71 +31,90 @@ public class Enemy_A_Star : MonoBehaviour
         healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
         targetPosition = tilemap.GetCellCenterWorld(startTilePosition);
-        Traverse();
     }
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-        /*
+        
                 if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
                 {
                     Traverse();
-                }*/
+                }
+
     }
 
     private void Traverse()
     {
         List<Node> openList = new List<Node>();
         List<Node> closedList = new List<Node>();
-        startNode.gCost = -1;
-        startNode.hCost = -1;
+        startNode.gCost = 0;
+        startNode.hCost = 0;
         openList.Add(startNode);
         Node currentNode = openList[0];
         int counter = 0;
-        while (openList.Count > 0 && currentNode.position != endTilePosition && counter < 5000)
+        while (openList.Count > 0 && counter < 600)
         {
-            currentNode = getNodeWithLeastFValue(openList);
-            openList.Remove(currentNode);
 
+            //take the Node with least fCost from openList
+            currentNode = getNodeWithLeastFValue(openList);
+
+            //remove current node from open list and add to closed list
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
+            Debug.Log("Current Node: " + currentNode);
+
+            //end loop when target is reached
             if (currentNode.position == endTilePosition)
             {
-                return;
+                List<Node> finalPath = new List<Node>();
+                Node tempNode = currentNode;
+                while (tempNode != null)
+                {
+                    finalPath.Add(tempNode);
+                    tempNode = tempNode.parent;
+                }
+                finalPath.Reverse();
+                transform.position = tilemap.GetCellCenterWorld(finalPath[0].position);
+                Debug.Log("final path: " + string.Join(", ", finalPath));
+                Debug.Log("iterations: " + counter);
+                Debug.Log("Found path to target!");
+                break;
+                //TODO: backtrack nodes to create a path
             }
-            List<Node> neighbours = getWalkableNeighbours(currentNode);
-            foreach (Node neighbour in neighbours)
+
+            //get walkable neighbours of current node
+            List<Node> children = getWalkableNeighbours(currentNode);
+            foreach (Node child in children)
             {
-                if (!containsNode(closedList, neighbour))
+                //if child is already in closed list, ignore this child
+                if (containsNode(closedList, child))
                 {
-                    neighbour.gCost = currentNode.gCost + 1; //in our maze the distance between parent and child node is always 1
-                    neighbour.hCost = Mathf.Abs(neighbour.position.x - endTilePosition.x) + Mathf.Abs(neighbour.position.y - endTilePosition.y);
+                    Debug.Log("Child already in closed list: " + child.position);
+                    continue; //skip to next child
+                }
 
+                //calculate gCost, hCost and fCost for child
+                child.gCost = currentNode.gCost + 1; //1 is the cost of moving to a neighbour
+                child.hCost = Mathf.Abs(child.position.x - endTilePosition.x) + Mathf.Abs(child.position.y - endTilePosition.y); //Manhattan distance
 
-                    if (!containsNode(openList, neighbour))
+                //check if child is already in open list
+                Node existingNode = getExistingNode(openList, child.position.x, child.position.y);
+                if (existingNode != null)
+                {
+                    //if childs position is already in closedList, check if childs position is better than existing node
+                    //if childs position is better, update existing node with childs parent and cost
+                    if (child.gCost > existingNode.gCost)
                     {
-                        openList.Add(neighbour);
-                    }
-                    else
-                    {
-                        Node existingNode = getExistingNode(openList, neighbour.position.x, neighbour.position.y);
-
-                        if (neighbour.fCost < existingNode.fCost)
-                        {
-                            Debug.Log("neighbor gCost: " + neighbour.gCost + " existingNode gCost: " + existingNode.gCost);
-                            existingNode.gCost = neighbour.gCost;
-                            existingNode.parent = currentNode;
-                        }
+                        continue; //skip to next child
                     }
                 }
-                else if (!(getExistingNode(closedList, neighbour.position.x, neighbour.position.y).fCost < neighbour.fCost))
-                {
-                    openList.Add(getExistingNode(openList, neighbour.position.x, neighbour.position.y));
-                }
+
+                //add child to open list
+                openList.Add(child);
+                counter++;
+                Debug.Log("Current Node: " + currentNode);
+                Debug.Log("Closed List: " + string.Join(", ", closedList));
             }
-            Debug.Log("Current Node: " + currentNode);
-            Debug.Log("Closed List: " + string.Join(", ", closedList));
-            //Debug.Log("Open List: " + string.Join(", ", openList));
-            closedList.Add(currentNode);
-            counter++;
         }//while
     }
 
@@ -172,8 +192,6 @@ public class Enemy_A_Star : MonoBehaviour
 
     private bool containsNode(List<Node> nodeList, Node node)
     {
-        Debug.Log("Checking if node exists: " + node.position);
-        Debug.Log("Node List: " + string.Join(", ", nodeList));
         if (nodeList == null || nodeList.Count == 0)
         {
             Debug.LogError("openListempty!");
