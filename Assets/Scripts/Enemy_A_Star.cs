@@ -21,7 +21,6 @@ public class Enemy_A_Star : MonoBehaviour
     public float moveSpeed = 2f;
     private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
-    private Node startNode = new Node(new Vector3Int(-9, 3, 0), null);
     private List<Node> finalPath = new List<Node>();
 
 
@@ -31,7 +30,7 @@ public class Enemy_A_Star : MonoBehaviour
         health = maxHealth;
         GameManager = GameObject.Find("GameManager");
         healthBar.SetHealth(health, maxHealth);
-        Debug.Log("EnemyMovement started");
+        transform.position = tilemap.GetCellCenterWorld(startTilePosition);
         targetPosition = tilemap.GetCellCenterWorld(startTilePosition);
         Traverse();
     }
@@ -44,6 +43,26 @@ public class Enemy_A_Star : MonoBehaviour
         }
 
     }
+
+    void OnEnable()
+    {
+        TilemapEditor.OnTilePlaced += HandleTilePlaced;
+    }
+
+    void OnDisable()
+    {
+        TilemapEditor.OnTilePlaced -= HandleTilePlaced;
+    }
+
+    void HandleTilePlaced(Vector3Int position)
+    {
+        Traverse();
+        Debug.Log("Tilemap raised event: " + position);
+
+    }
+
+
+
 
 
     private void moveEnemy()
@@ -66,6 +85,9 @@ public class Enemy_A_Star : MonoBehaviour
 
     private void Traverse()
     {
+        Node startNode = new Node(tilemap.WorldToCell(transform.position), null);
+        Debug.Log("startnode pos: " + startNode.position);
+        finalPath.Clear();
         List<Node> openList = new List<Node>();
         List<Node> closedList = new List<Node>();
         startNode.gCost = 0;
@@ -73,7 +95,7 @@ public class Enemy_A_Star : MonoBehaviour
         openList.Add(startNode);
         Node currentNode = openList[0];
         int counter = 0;
-        while (openList.Count > 0 && counter <1000) //1000 iterations is just a measure to prevent accidental infinite loop
+        while (openList.Count > 0 && counter < 1000) //1000 iterations is just a measure to prevent accidental infinite loop
         {
             counter++;
             //take the Node with least fCost from openList
@@ -101,37 +123,107 @@ public class Enemy_A_Star : MonoBehaviour
             List<Node> children = getWalkableNeighbours(currentNode);
             foreach (Node child in children)
             {
-                //if child is already in closed list, ignore this child
-                if (containsNode(closedList, child))
-                {
-                    //Debug.Log("Child already in closed list: " + child.position);
-                    continue; //skip to next child
-                }
-
-                //calculate gCost, hCost and fCost for child
-                child.gCost = currentNode.gCost + 1; //in our maze the cost of moving to a neighbour is always 1
+                child.parent = currentNode; //set parent of child to current node
                 child.hCost = Mathf.Abs(child.position.x - endTilePosition.x) + Mathf.Abs(child.position.y - endTilePosition.y); //Manhattan distance
+                child.gCost = currentNode.gCost + 1; //in our maze the cost of moving to a neighbour is always 1
 
-                //check if child is already in open list
-                Node existingNode = getExistingNode(openList, child.position.x, child.position.y);
-                if (existingNode != null)
+                if (containsNode(openList, child))
                 {
-                    //if childs position is already in closedList, check if childs position is better than existing node
-                    //if childs position is better, update existing node with childs parent and cost
-                    if (child.gCost > existingNode.gCost)
+                    Node existingNode = getExistingNode(openList, child.position.x, child.position.y);
+                    if (existingNode.gCost < child.gCost)
                     {
                         continue; //skip to next child
                     }
                 }
 
+                if (containsNode(closedList, child))
+                {
+                    Node existingNode = getExistingNode(closedList, child.position.x, child.position.y);
+                    if (existingNode.gCost < child.gCost)
+                    {
+                        continue; //skip to next child
+                    }
+                }
+                openList.Remove(getExistingNode(openList, child.position.x, child.position.y)); //remove existing node from openList list if it exists
+                closedList.Remove(getExistingNode(closedList, child.position.x, child.position.y)); //remove existing node from openList list if it exists
+                openList.Add(child); //add child to open list
+
                 //add child to open list
-                openList.Add(child);
                 //Debug.Log("Current Node: " + currentNode);
                 //Debug.Log("Closed List: " + string.Join(", ", closedList));
             }
-            Debug.Log("counter: " + counter);
         }//while
+        Debug.Log("Path found in " + counter + "iterations");
     }
+
+    //private void Traverse()
+    //{
+    //    List<Node> openList = new List<Node>();
+    //    List<Node> closedList = new List<Node>();
+    //    startNode.gCost = 0;
+    //    startNode.hCost = 0;
+    //    openList.Add(startNode);
+    //    Node currentNode = openList[0];
+    //    int counter = 0;
+    //    while (openList.Count > 0 && counter < 1000) //1000 iterations is just a measure to prevent accidental infinite loop
+    //    {
+    //        counter++;
+    //        //take the Node with least fCost from openList
+    //        currentNode = getNodeWithLeastFValue(openList);
+
+    //        //remove current node from open list and add to closed list
+    //        openList.Remove(currentNode);
+    //        closedList.Add(currentNode);
+    //        //Debug.Log("Current Node: " + currentNode);
+
+    //        //end loop when target is reached
+    //        if (currentNode.position == endTilePosition)
+    //        {
+    //            Node tempNode = currentNode;
+    //            while (tempNode != null)
+    //            {
+    //                finalPath.Add(tempNode);
+    //                tempNode = tempNode.parent;
+    //            }
+    //            finalPath.Reverse();
+    //            break;
+    //        }
+
+    //        //get walkable neighbours of current node
+    //        List<Node> children = getWalkableNeighbours(currentNode);
+    //        foreach (Node child in children)
+    //        {
+    //            //if child is already in closed list, ignore this child
+    //            if (containsNode(closedList, child))
+    //            {
+    //                //Debug.Log("Child already in closed list: " + child.position);
+    //                continue; //skip to next child
+    //            }
+
+    //            //calculate gCost, hCost and fCost for child
+    //            child.gCost = currentNode.gCost + 1; //in our maze the cost of moving to a neighbour is always 1
+    //            child.hCost = Mathf.Abs(child.position.x - endTilePosition.x) + Mathf.Abs(child.position.y - endTilePosition.y); //Manhattan distance
+
+    //            //check if child is already in open list
+    //            Node existingNode = getExistingNode(openList, child.position.x, child.position.y);
+    //            if (existingNode != null)
+    //            {
+    //                //if childs position is already in closedList, check if childs position is better than existing node
+    //                //if childs position is better, update existing node with childs parent and cost
+    //                if (child.gCost > existingNode.gCost)
+    //                {
+    //                    continue; //skip to next child
+    //                }
+    //            }
+
+    //            //add child to open list
+    //            openList.Add(child);
+    //            //Debug.Log("Current Node: " + currentNode);
+    //            //Debug.Log("Closed List: " + string.Join(", ", closedList));
+    //        }
+    //        Debug.Log("counter: " + counter);
+    //    }//while
+    //}
 
 
     private List<Node> getWalkableNeighbours(Node currentNode)
