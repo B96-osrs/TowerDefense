@@ -1,21 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class Enemy : MonoBehaviour
+public class Enemy_BFS : MonoBehaviour
 {
     public int maxHealth;
     public int killMoney;
     private int health;
     public Tilemap tilemap;
     public GameObject enemy;
-    private Vector3Int startingTilePosition = new Vector3Int(-10, 3, 0);
-    private Vector3Int endTilePosition = new Vector3Int(10, -3, 0);
+    private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     public float moveDelay = 1.0f;
     private HealthBar healthBar;
     private GameObject GameManager;
+    private List<Vector3Int> finalPath = new List<Vector3Int>();
+    Vector3 targetPosition;
+    public float moveSpeed = 2f; 
 
     void Start()
     {
@@ -23,11 +27,37 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
         GameManager = GameObject.Find("GameManager");
         healthBar.SetHealth(health, maxHealth);
-        Debug.Log("EnemyMovement started");
-        StartCoroutine(FindPathBFS());
+        transform.position = tilemap.GetCellCenterWorld(startTilePosition);
+        targetPosition = tilemap.GetCellCenterWorld(startTilePosition);
+        findPathBFS();
+
+    }
+    void Update()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            moveEnemy();
+        }
+
+    }
+    //Eventhandler calculates the path when a tile is placed
+    void OnEnable()
+    {
+        TilemapEditor.OnTilePlaced += HandleTilePlaced;
     }
 
+    void OnDisable()
+    {
+        TilemapEditor.OnTilePlaced -= HandleTilePlaced;
+    }
 
+    void HandleTilePlaced(Vector3Int position)
+    {
+        findPathBFS();
+        Debug.Log("Tilemap raised event: " + position);
+
+    }
 
 
     public void takeDamage(int damage)
@@ -44,10 +74,11 @@ public class Enemy : MonoBehaviour
     }
 
 
-    IEnumerator FindPathBFS()
+    private void findPathBFS()
     {
+        finalPath.Clear();
         int loopCounter = 0;
-        Vector3Int currentNode = startingTilePosition;
+        Vector3Int currentNode = tilemap.WorldToCell(transform.position);
         Vector3Int endNode = endTilePosition;
         HashSet<Vector3Int> visited = new HashSet<Vector3Int>(); //to keep track of visited nodes
         Queue<Vector3Int> q = new Queue<Vector3Int>(); //keep track of nodes to visit
@@ -64,12 +95,11 @@ public class Enemy : MonoBehaviour
             if (currentNode == endNode)
             {
                 Debug.Log("Path found");
-                List<Vector3Int> path = (ReconstructPath(parentMap));
-                StartCoroutine(MoveEnemy(path));
-                yield break;
+                finalPath = (ReconstructPath(parentMap));
+                break;
             }
 
-            
+
             Vector3Int topNode = new Vector3Int(currentNode.x, currentNode.y + 1, 0);
             Vector3Int rightNode = new Vector3Int(currentNode.x + 1, currentNode.y, 0);
             Vector3Int bottomNode = new Vector3Int(currentNode.x, currentNode.y - 1, 0);
@@ -78,7 +108,7 @@ public class Enemy : MonoBehaviour
 
             //check if the top tile is walkable
             TileBase topTile = tilemap.GetTile(topNode);
-            if (topTile != null && topTile.name == "White_Tile_0" && !visited.Contains(topNode))
+            if (topTile != null && topTile.name != "Wall_Tile" && !visited.Contains(topNode))
             {
                 q.Enqueue(topNode);
                 visited.Add(topNode);
@@ -87,7 +117,7 @@ public class Enemy : MonoBehaviour
 
             //check if the right tile is walkable
             TileBase rightTile = tilemap.GetTile(rightNode);
-            if (rightTile != null && rightTile.name == "White_Tile_0" && !visited.Contains(rightNode))
+            if (rightTile != null && rightTile.name != "Wall_Tile" && !visited.Contains(rightNode))
             {
                 q.Enqueue(rightNode);
                 visited.Add(rightNode);
@@ -96,7 +126,7 @@ public class Enemy : MonoBehaviour
 
             //check if the bottom tile is walkable
             TileBase bottomTile = tilemap.GetTile(bottomNode);
-            if (bottomTile != null && bottomTile.name == "White_Tile_0" && !visited.Contains(bottomNode))
+            if (bottomTile != null && bottomTile.name != "Wall_Tile" && !visited.Contains(bottomNode))
             {
                 q.Enqueue(bottomNode);
                 visited.Add(bottomNode);
@@ -105,7 +135,7 @@ public class Enemy : MonoBehaviour
 
             //check if the left tile is walkable
             TileBase leftTile = tilemap.GetTile(leftNode);
-            if (leftTile != null && leftTile.name == "White_Tile_0" && !visited.Contains(leftNode))
+            if (leftTile != null && leftTile.name != "Wall_Tile" && !visited.Contains(leftNode))
             {
                 q.Enqueue(leftNode);
                 visited.Add(leftNode);
@@ -119,48 +149,30 @@ public class Enemy : MonoBehaviour
     {
         List<Vector3Int> path = new List<Vector3Int>();
         Vector3Int current = endTilePosition;
-        while (current != startingTilePosition)
+        while (current != tilemap.WorldToCell(transform.position))
         {
             path.Add(current);
             current = parentMap[current];
         }
 
-        path.Add(startingTilePosition);
         path.Reverse();
         Debug.Log(path.ToArray());
         return path;
     }
-
-    IEnumerator MoveEnemy(List<Vector3Int> path)
+    private void moveEnemy()
     {
-        for (int i = 0; i < path.Count - 1; i++)
-        {
-
-            Vector3 currentPosition = tilemap.CellToWorld(path[i]) + new Vector3(0.5f, 0.5f, 0);
-            Vector3 nextPosition = tilemap.CellToWorld(path[i + 1]) + new Vector3(0.5f, 0.5f, 0);
-            float journeyLength = Vector3.Distance(currentPosition, nextPosition);
-            float moveDuration = journeyLength / 2.8f;
-            float timeElapsed = 0f;
-
-            while (timeElapsed < moveDuration)
-            {
-                transform.position = Vector3.Lerp(currentPosition, nextPosition, timeElapsed / moveDuration);
-                timeElapsed += Time.deltaTime;
-                yield return null;
-            }
-            yield return new WaitForSeconds(0.0f);
-            transform.position = nextPosition;
-        }
-
-
         if (tilemap.WorldToCell(transform.position) == endTilePosition)
         {
             GameManager.GetComponent<GameManager>().hitpoints -= 1;
             Debug.Log("enemy escaped" + GameManager.GetComponent<GameManager>().hitpoints);
             Destroy(gameObject);
-
+            return;
         }
-
+        if (finalPath.Count > 0)
+        {
+            targetPosition = tilemap.GetCellCenterWorld(finalPath[0]);
+            finalPath.RemoveAt(0);
+        }
     }
 
 }

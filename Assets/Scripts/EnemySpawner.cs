@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("Enemy Spawned at: " + transform.position);
         GameObject newEnemy = Instantiate(enemyPrefab, new Vector3Int(-9, 3, 0) + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
-        Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+        Enemy_BFS enemyScript = newEnemy.GetComponent<Enemy_BFS>();
         if (enemyScript != null)
         {
             Debug.Log("Enemy script found");

@@ -44,6 +44,7 @@ public class Enemy_A_Star : MonoBehaviour
 
     }
 
+    //Eventhandler calculates path again when a tile is placed
     void OnEnable()
     {
         TilemapEditor.OnTilePlaced += HandleTilePlaced;
@@ -60,10 +61,6 @@ public class Enemy_A_Star : MonoBehaviour
         Debug.Log("Tilemap raised event: " + position);
 
     }
-
-
-
-
 
     private void moveEnemy()
     {
@@ -262,7 +259,7 @@ public class Enemy_A_Star : MonoBehaviour
     private bool isWalkable(Vector3Int node)
     {
         TileBase tile = tilemap.GetTile(node);
-        if (tile != null && tile.name == "White_Tile_0")
+        if (tile != null && tile.name != "Wall_Tile")
         {
             return true;
         }

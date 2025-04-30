@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject enemy in enemies)
                 {
-                    enemy.GetComponent<Enemy>().maxHealth = (int) Math.Floor(enemy.GetComponent<Enemy>().maxHealth * 1.1);
+                    enemy.GetComponent<Enemy_BFS>().maxHealth = (int) Math.Floor(enemy.GetComponent<Enemy_BFS>().maxHealth * 1.1);
                 }
                 enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
                 enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();

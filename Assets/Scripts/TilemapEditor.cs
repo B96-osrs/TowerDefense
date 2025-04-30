@@ -16,7 +16,7 @@ public class TilemapEditor : MonoBehaviour
         TileBase tile = tilemap.GetTile(mouseTilemapPosition);
 
         //check if the mouse is clicked and the turret prefab is selected and the tile is a wall tile and the tile does not already have a cannon
-        if (Input.GetMouseButtonDown(0) && tile.name == "White_Tile_0")
+        if (Input.GetMouseButtonDown(0) && tile.name == "Block_Tile")
         {
             Debug.Log("Tile clicked" + mouseTilemapPosition);
 

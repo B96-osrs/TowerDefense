@@ -171,7 +171,7 @@ public class Enemy_Left_Only : MonoBehaviour
     private bool isWalkable(Vector3Int node)
     {
         TileBase tile = tilemap.GetTile(node);
-        if (tile != null && tile.name == "White_Tile_0")
+        if (tile != null && tile.name != "Wall_Tile")
         {
             return true;
         }

@@ -23,9 +23,9 @@ public class Projectile : MonoBehaviour
     {
         if(!target) return;
         Debug.Log(target);
-        if(target.GetComponent<Enemy>() != null)
+        if(target.GetComponent<Enemy_BFS>() != null)
         {
-            target.GetComponent<Enemy>().takeDamage((int)damage);
+            target.GetComponent<Enemy_BFS>().takeDamage((int)damage);
             Debug.Log("Hit enemy");
         } else if (target.GetComponent<Enemy_Left_Only>() != null)
         {
