@@ -31,6 +31,7 @@ public class Enemy_Random : MonoBehaviour
         healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
         targetPosition = tilemap.GetCellCenterWorld(currentNode);
+        InvokeRepeating("takeDamageOverTime", 60f, 3f);
     }
     void Update()
     {
@@ -110,6 +111,12 @@ public class Enemy_Random : MonoBehaviour
             GameManager.GetComponent<GameManager>().money += killMoney;
             GameManager.GetComponent<GameManager>().enemiesKilled++;
         }
+    }
+
+
+    public void takeDamageOverTime()
+    {
+        takeDamage(15);
     }
 
 

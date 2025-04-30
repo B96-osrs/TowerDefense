@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
 
         while (q.Count > 0)
         {
+            loopCounter++;
             currentNode = q.Dequeue();
 
             //if we reach our end tile
@@ -108,7 +109,6 @@ public class Enemy : MonoBehaviour
                 visited.Add(leftNode);
                 parentMap[leftNode] = currentNode;
             }
-            loopCounter++;
             Debug.Log("Loop counter: " + loopCounter);
         } //while
     } //FindPathBFS

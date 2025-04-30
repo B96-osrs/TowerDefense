@@ -40,7 +40,12 @@ public class Projectile : MonoBehaviour
         else if (target.GetComponent<Enemy_Random>() != null)
         {
             target.GetComponent<Enemy_Random>().takeDamage((int)damage);
-            Debug.Log("Hit enemy right only");
+            Debug.Log("Hit eneme Random");
+        }
+        else if (target.GetComponent<Enemy_A_Star>() != null)
+        {
+            target.GetComponent<Enemy_A_Star>().takeDamage((int)damage);
+            Debug.Log("Hit enemy AStar");
         }
         Destroy(gameObject);
     }
