@@ -7,21 +7,26 @@ public class TilemapEditor : MonoBehaviour
     private Vector3Int mouseTilemapPosition = new Vector3Int(0, 0, 0);
     public RuleTile wallTile;
     public Tilemap tilemap;
+    private GameObject GameManager;
 
     public static event Action<Vector3Int> OnTilePlaced;
-
+    void Start()
+    {
+        GameManager = GameObject.Find("GameManager");
+    }
     void Update()
     {
         mouseTilemapPosition = GetMousePosition();
         TileBase tile = tilemap.GetTile(mouseTilemapPosition);
 
-        //check if the mouse is clicked and the turret prefab is selected and the tile is a wall tile and the tile does not already have a cannon
-        if (Input.GetMouseButtonDown(0) && tile.name == "Block_Tile")
-        {
-            Debug.Log("Tile clicked" + mouseTilemapPosition);
 
+        if (Input.GetMouseButtonDown(0) && tile.name == "Block_Tile" && GameManager.GetComponent<GameManager>().blockTilesAvailable >= 1)
+        {
+            Debug.Log("Trying to place tile, " + GameManager.GetComponent<GameManager>().blockTilesAvailable + "tiles available");
+            tilemap.SetTile(mouseTilemapPosition, null);
             tilemap.SetTile(mouseTilemapPosition, wallTile);
             OnTilePlaced?.Invoke(mouseTilemapPosition);
+            GameManager.GetComponent<GameManager>().blockTilesAvailable--;
         }
     }
 

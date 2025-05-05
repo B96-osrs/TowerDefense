@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
     public int level = 1;
     public int hitpoints = 20;
     public int money = 500;
-    private int currentLevel = 0;
+    public int blockTilesAvailable = 2;
+
+    [HideInInspector]
+    private int currentLevel = 0;  
     [HideInInspector]
     public int enemiesKilled = 0;
 
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private EnemySpawner enemySpawner;
     public TextMeshProUGUI moneyDisplay;
+    public TextMeshProUGUI blockTilesAvailableDisplay;
     public TextMeshProUGUI hitpointsDisplay;
     public TextMeshProUGUI levelDisplay;
     public TextMeshProUGUI enemiesKilledDisplay;
@@ -44,6 +48,7 @@ public class GameManager : MonoBehaviour
         hitpointsDisplay.text = hitpoints + "";
         levelDisplay.text = currentLevel + "";
         enemiesKilledDisplay.text = enemiesKilled + "";
+        blockTilesAvailableDisplay.text = blockTilesAvailable + "";
 
         if (hitpoints <= 0)
         {
