@@ -36,6 +36,8 @@ public class Enemy_A_Star : MonoBehaviour
     }
     void Update()
     {
+
+        //while the enemy position is not at the targetposition, move towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
         {
@@ -153,76 +155,9 @@ public class Enemy_A_Star : MonoBehaviour
         Debug.Log("Path found in " + counter + "iterations");
     }
 
-    //private void Traverse()
-    //{
-    //    List<Node> openList = new List<Node>();
-    //    List<Node> closedList = new List<Node>();
-    //    startNode.gCost = 0;
-    //    startNode.hCost = 0;
-    //    openList.Add(startNode);
-    //    Node currentNode = openList[0];
-    //    int counter = 0;
-    //    while (openList.Count > 0 && counter < 1000) //1000 iterations is just a measure to prevent accidental infinite loop
-    //    {
-    //        counter++;
-    //        //take the Node with least fCost from openList
-    //        currentNode = getNodeWithLeastFValue(openList);
 
-    //        //remove current node from open list and add to closed list
-    //        openList.Remove(currentNode);
-    //        closedList.Add(currentNode);
-    //        //Debug.Log("Current Node: " + currentNode);
-
-    //        //end loop when target is reached
-    //        if (currentNode.position == endTilePosition)
-    //        {
-    //            Node tempNode = currentNode;
-    //            while (tempNode != null)
-    //            {
-    //                finalPath.Add(tempNode);
-    //                tempNode = tempNode.parent;
-    //            }
-    //            finalPath.Reverse();
-    //            break;
-    //        }
-
-    //        //get walkable neighbours of current node
-    //        List<Node> children = getWalkableNeighbours(currentNode);
-    //        foreach (Node child in children)
-    //        {
-    //            //if child is already in closed list, ignore this child
-    //            if (containsNode(closedList, child))
-    //            {
-    //                //Debug.Log("Child already in closed list: " + child.position);
-    //                continue; //skip to next child
-    //            }
-
-    //            //calculate gCost, hCost and fCost for child
-    //            child.gCost = currentNode.gCost + 1; //in our maze the cost of moving to a neighbour is always 1
-    //            child.hCost = Mathf.Abs(child.position.x - endTilePosition.x) + Mathf.Abs(child.position.y - endTilePosition.y); //Manhattan distance
-
-    //            //check if child is already in open list
-    //            Node existingNode = getExistingNode(openList, child.position.x, child.position.y);
-    //            if (existingNode != null)
-    //            {
-    //                //if childs position is already in closedList, check if childs position is better than existing node
-    //                //if childs position is better, update existing node with childs parent and cost
-    //                if (child.gCost > existingNode.gCost)
-    //                {
-    //                    continue; //skip to next child
-    //                }
-    //            }
-
-    //            //add child to open list
-    //            openList.Add(child);
-    //            //Debug.Log("Current Node: " + currentNode);
-    //            //Debug.Log("Closed List: " + string.Join(", ", closedList));
-    //        }
-    //        Debug.Log("counter: " + counter);
-    //    }//while
-    //}
-
-
+    //checks all adjacent neighbours to determine if they are walkable
+    //diagonal movement is not allowed
     private List<Node> getWalkableNeighbours(Node currentNode)
     {
         Vector3Int topNode = new Vector3Int(currentNode.position.x, currentNode.position.y + 1, 0);
@@ -240,7 +175,9 @@ public class Enemy_A_Star : MonoBehaviour
         return walkableNeighbours;
     }
 
-
+    //reduces enemy hitpoints by the damage taken
+    //updates healthbar
+    //updates money and enemies killed in GameManager if enemy is dead
     public void takeDamage(int damage)
     {
         Debug.Log("Enemy took damage: " + damage);
@@ -255,7 +192,7 @@ public class Enemy_A_Star : MonoBehaviour
         }
     }
 
-
+    //returns true if the parameter node is not a wall tile
     private bool isWalkable(Vector3Int node)
     {
         TileBase tile = tilemap.GetTile(node);
@@ -266,7 +203,8 @@ public class Enemy_A_Star : MonoBehaviour
         return false;
     }
 
-
+    //takes in a list as parameter, we only use this method on openList
+    //returns node with the lowest fCost 
     private Node getNodeWithLeastFValue(List<Node> openList)
     {
         Node nodeWithLeastFValue = openList[0];
@@ -280,6 +218,8 @@ public class Enemy_A_Star : MonoBehaviour
         return nodeWithLeastFValue;
     }
 
+    //takes in List, x and y and if there is a node with those coordinates in the list, it returns that node
+    //if not, it returns null
     private Node getExistingNode(List<Node> openList, int xValue, int yValue)
     {
         Node existingNode;
@@ -293,6 +233,7 @@ public class Enemy_A_Star : MonoBehaviour
         return null;
     }
 
+    //checks if node is already in the list based on the position
     private bool containsNode(List<Node> nodeList, Node node)
     {
         if (nodeList == null || nodeList.Count == 0)

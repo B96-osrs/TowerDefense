@@ -604,7 +604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' QUIT'
+  m_text: ' EXIT'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6749c1aef2fa08d4d8a5d5194d4f54da, type: 2}
   m_sharedMaterial: {fileID: 6586391284126376731, guid: 6749c1aef2fa08d4d8a5d5194d4f54da, type: 2}
@@ -632,9 +632,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 64
-  m_fontSizeBase: 24
+  m_fontSizeBase: 64
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 64
   m_fontStyle: 0
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' OPTIONS'
+  m_text: ' instructions'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6749c1aef2fa08d4d8a5d5194d4f54da, type: 2}
   m_sharedMaterial: {fileID: 6586391284126376731, guid: 6749c1aef2fa08d4d8a5d5194d4f54da, type: 2}
@@ -872,9 +872,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 64
-  m_fontSizeBase: 24
+  m_fontSizeBase: 64
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 64
   m_fontStyle: 0
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -116.079956, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 1162772939}
   - component: {fileID: 1162772938}
   m_Layer: 5
-  m_Name: OptionsButton
+  m_Name: InstructionsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,8 +959,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -77}
-  m_SizeDelta: {x: 300, y: 60}
+  m_AnchoredPosition: {x: 92, y: -75}
+  m_SizeDelta: {x: 465, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162772938
 MonoBehaviour:
@@ -1006,13 +1006,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1560917064}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1560917066}
+        m_TargetAssemblyTypeName: MenuScript, Assembly-CSharp
+        m_MethodName: showInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1280,7 +1280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -16}
+  m_AnchoredPosition: {x: 10, y: -12}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967713308
@@ -1390,7 +1390,7 @@ GameObject:
   - component: {fileID: 2109895286}
   - component: {fileID: 2109895285}
   m_Layer: 5
-  m_Name: QuitButton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

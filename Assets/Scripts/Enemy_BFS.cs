@@ -141,7 +141,6 @@ public class Enemy_BFS : MonoBehaviour
                 visited.Add(leftNode);
                 parentMap[leftNode] = currentNode;
             }
-            Debug.Log("Loop counter: " + loopCounter);
         } //while
     } //FindPathBFS
 
