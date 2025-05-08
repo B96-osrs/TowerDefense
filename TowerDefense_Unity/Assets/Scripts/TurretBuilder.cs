@@ -25,6 +25,7 @@ public class TurretBuilder : MonoBehaviour
         {
             Instantiate(turretPrefab, tilemap.GetCellCenterWorld(mousePosition), Quaternion.identity);
             GameManager.GetComponent<GameManager>().money -= turretPrefabCost;
+            GameManager.GetComponent<GameManager>().moneySpent += turretPrefabCost;
             turretPrefab = null;
         }
     }

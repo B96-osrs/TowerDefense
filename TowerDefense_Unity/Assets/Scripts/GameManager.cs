@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public int hitpoints = 20;
     public int money = 500;
     public int blockTilesAvailable = 2;
+    private bool gameIsOver = false;
+
+    private float playedTime = 0;
+    [HideInInspector]
+    public int moneySpent = 0;
 
     [HideInInspector]
     private int currentLevel = 0;  
@@ -44,14 +49,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        playedTime += Time.deltaTime;
         moneyDisplay.text = money + "";
         hitpointsDisplay.text = hitpoints + "";
         levelDisplay.text = currentLevel + "";
         enemiesKilledDisplay.text = enemiesKilled + "";
         blockTilesAvailableDisplay.text = blockTilesAvailable + "";
 
-        if (hitpoints <= 0)
+        if (hitpoints <= 0 && !gameIsOver)
         {
+            Debug.Log("Game Over cause hp 0");
             gameOver();
         }
     }
@@ -103,13 +110,16 @@ public class GameManager : MonoBehaviour
 
     public void gameOver()
     {
+        gameIsOver = true;
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
+        StartCoroutine(this.GetComponent<Post_Data>().Upload((int)playedTime, moneySpent, currentLevel, enemiesKilled));
+        //target.GetComponent<Enemy_Right_Only>().takeDamage((int)damage);
     }
-
 
     public void newGame()
     {
         SceneManager.LoadScene("Game");
     }
+
 }
