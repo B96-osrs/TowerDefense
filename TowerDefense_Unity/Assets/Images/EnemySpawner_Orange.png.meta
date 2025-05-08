@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      EnemySpawner_Orange_0: 6566539970673952023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

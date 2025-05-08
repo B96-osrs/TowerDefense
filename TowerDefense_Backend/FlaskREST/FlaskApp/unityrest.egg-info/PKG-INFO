@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: unityrest
+Version: 1.0.0
+Requires-Dist: Flask>=2.0
+Requires-Dist: Flask-SQLAlchemy>=2.5
+Requires-Dist: psycopg2-binary>=2.9
+Dynamic: requires-dist

@@ -8,9 +8,14 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void showInfo()
+    public void showHowToPlay()
     {
-        SceneManager.LoadScene("Info");
+        SceneManager.LoadScene("HowToPlay");
+    }
+
+    public void showStats()
+    {
+        SceneManager.LoadScene("Data");
     }
 
     public void quitGame()
