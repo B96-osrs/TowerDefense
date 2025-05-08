@@ -1,21 +1,20 @@
-**Overview**<br>
-This is the final project for Coders.Bay, a Tower Defense game developed in Unity using C#. <br>
-The project was completed within a four-week timeframe and features strategic turret placement, enemy pathfinding, and multiple levels of increasing difficulty.<br>
+Final Project for CODERS.BAY<br><br>
 
-**Features**<br>
-Five levels, each with new enemies<br>
-Three different turret types with distinct capabilities<br>
-Enemy pathfinding implemented using BFS, Hand-on-Wall Rule (Left and Right)<br>
-Wave-based enemy spawning with increasing difficulty<br>
+Tech stack:<br>
+Frontend: Unity with C#<br>
+Backend: Python with Flask<br>
+Database: PostgreSQL<br><br>
 
-**Technologies**<br>
-Unity Engine for game development<br>
-C# for programming logic<br>
-Unity UI System for menus and in-game UI<br>
+Features:<br>
+Six levels with unique enemies and increasing difficulty<br>
+Three turret types with distinct capabilities<br>
+Advanced pathfinding algorithms including BFS, A*, LHR, RHR, random movement, and AI-powered behaviors<br>
+Wave-based enemy spawning with progressive difficulty<br><br>
 
-**How to Play**<br>
-Press the start button to begin the game.<br>
-Select turrets and place them along the dark walls.<br>
-Enemy pathfinding gets increasingly better<br>
-You start with 20 hitpoints, each surviving enemy decreases your hitpoints by 1.<br>
-Each kill gives you coins which you can spend in the shop<br>
+How to Play:<br>
+Press the start button to begin the game<br>
+Select turrets and place them along the dark walls<br>
+You can set 2 blocks in each game<br>
+Enemy pathfinding improves with each wave<br>
+You start with 20 hitpoints – each surviving enemy reduces your hitpoints by 1<br>
+Earn coins for each enemy kill to spend in the shop<br>
