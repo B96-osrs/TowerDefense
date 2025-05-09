@@ -69,6 +69,13 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("Enemy_A_Star script found");
             enemyScriptAStar.tilemap = tilemap;
         }
+        Enemy_AI enemyScriptAI = newEnemy.GetComponent<Enemy_AI>();
+        if (enemyScriptAI != null)
+        {
+            Debug.Log("Enemy_AI script found");
+            enemyScriptAI.tilemap = tilemap;
+        }
+
     }
 
 

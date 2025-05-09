@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
         StartCoroutine(this.GetComponent<Post_Data>().Upload((int)playedTime, moneySpent, currentLevel, enemiesKilled));
-        //target.GetComponent<Enemy_Right_Only>().takeDamage((int)damage);
     }
 
     public void newGame()

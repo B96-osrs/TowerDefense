@@ -47,6 +47,11 @@ public class Projectile : MonoBehaviour
             target.GetComponent<Enemy_A_Star>().takeDamage((int)damage);
             Debug.Log("Hit enemy AStar");
         }
+        else if (target.GetComponent<Enemy_AI>() != null)
+        {
+            target.GetComponent<Enemy_AI>().takeDamage((int)damage);
+            Debug.Log("Hit Enemy_AI");
+        }
         Destroy(gameObject);
     }
 }

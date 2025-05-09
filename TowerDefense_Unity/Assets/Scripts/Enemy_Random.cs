@@ -17,7 +17,7 @@ public class Enemy_Random : MonoBehaviour
     private GameObject GameManager;
     Vector3 targetPosition;
     public float moveSpeed = 2f;
-    private Vector3Int endTilePosition = new Vector3Int(10, -3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
     private Vector3Int previousNode = new Vector3Int(-11, 3, 0);
     private Vector3Int currentNode = new Vector3Int(-9, 3, 0);

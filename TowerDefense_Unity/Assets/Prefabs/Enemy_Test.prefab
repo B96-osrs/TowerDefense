@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 561179565139336036}
   - component: {fileID: 8801075105083111491}
   - component: {fileID: 3895115122472881548}
-  - component: {fileID: 548382796229893727}
+  - component: {fileID: -3058317769159605822}
   m_Layer: 6
   m_Name: Enemy_Test
   m_TagString: Enemy
@@ -282,7 +282,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &548382796229893727
+--- !u!114 &-3058317769159605822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,14 +291,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3030494173107284703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b562818ef011a246b83e1298e701a4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 970f8b950731b8447a7f5f2c71443a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  killMoney: 0
+  maxHealth: 200
+  killMoney: 50
   tilemap: {fileID: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 3030494173107284703}
   moveDelay: 1
+  moveSpeed: 2
 --- !u!1 &4513279930889608399
 GameObject:
   m_ObjectHideFlags: 0

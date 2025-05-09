@@ -10,7 +10,7 @@ public class Enemy_Left_Only : MonoBehaviour
     private int health;
     public Tilemap tilemap;
     public GameObject enemy;
-    private Vector3Int endTilePosition = new Vector3Int(10, -3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     public float moveDelay = 1.0f;
     private HealthBar healthBar;
     private GameObject GameManager;
