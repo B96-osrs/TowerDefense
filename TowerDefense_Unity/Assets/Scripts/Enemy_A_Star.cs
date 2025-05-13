@@ -9,18 +9,21 @@ using UnityEngine.Tilemaps;
 
 public class Enemy_A_Star : MonoBehaviour
 {
+    // Public configuration variables
     public int maxHealth;
     public int killMoney;
-    private int health;
+    public float moveDelay = 1.0f;
+    public float moveSpeed = 2f;
     public Tilemap tilemap;
     public GameObject enemy;
-    public float moveDelay = 1.0f;
+
+    // Private state variables
+    private int health;
     private HealthBar healthBar;
     private GameObject GameManager;
-    Vector3 targetPosition;
-    public float moveSpeed = 2f;
-    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
+    private Vector3 targetPosition;
     private List<Node> finalPath = new List<Node>();
 
 
@@ -146,10 +149,6 @@ public class Enemy_A_Star : MonoBehaviour
                 openList.Remove(getExistingNode(openList, child.position.x, child.position.y)); //remove existing node from openList list if it exists
                 closedList.Remove(getExistingNode(closedList, child.position.x, child.position.y)); //remove existing node from openList list if it exists
                 openList.Add(child); //add child to open list
-
-                //add child to open list
-                //Debug.Log("Current Node: " + currentNode);
-                //Debug.Log("Closed List: " + string.Join(", ", closedList));
             }
         }//while
         Debug.Log("Path found in " + counter + "iterations");

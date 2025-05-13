@@ -7,19 +7,25 @@ using UnityEngine.Tilemaps;
 
 public class Enemy_BFS : MonoBehaviour
 {
+    // Public configuration variables
     public int maxHealth;
     public int killMoney;
-    private int health;
+    public float moveDelay = 1.0f;
+    public float moveSpeed = 2f;
     public Tilemap tilemap;
     public GameObject enemy;
+
+    // State and pathfinding variables
+    private int health;
     private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
     private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
-    public float moveDelay = 1.0f;
+    private Vector3 targetPosition;
+    private List<Vector3Int> finalPath = new List<Vector3Int>();
+
+    // private reference variables
     private HealthBar healthBar;
     private GameObject GameManager;
-    private List<Vector3Int> finalPath = new List<Vector3Int>();
-    Vector3 targetPosition;
-    public float moveSpeed = 2f; 
+
 
     void Start()
     {

@@ -5,8 +5,8 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-
-    public int level = 1;
+    // Game variables
+    public int level = 0;
     public int hitpoints = 20;
     public int money = 500;
     public int blockTilesAvailable = 2;
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int enemiesKilled = 0;
 
+    // Enemy spawner
     public static GameManager Instance;
     public GameObject enemySpawnerPurple;
     public GameObject enemySpawnerYellow;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemySpawnerGreen;
     public GameObject enemySpawnerOrange;
 
+    // UI elements
     private EnemySpawner enemySpawner;
     public TextMeshProUGUI moneyDisplay;
     public TextMeshProUGUI blockTilesAvailableDisplay;
@@ -89,13 +91,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             default:
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (GameObject enemy in enemies)
-                {
-                    enemy.GetComponent<Enemy_BFS>().maxHealth = (int) Math.Floor(enemy.GetComponent<Enemy_BFS>().maxHealth * 1.1);
-                }
                 enemySpawner = Instantiate(enemySpawnerOrange).GetComponent<EnemySpawner>();
-                enemySpawner = Instantiate(enemySpawnerPurple).GetComponent<EnemySpawner>();
+                enemySpawner = Instantiate(enemySpawnerYellow).GetComponent<EnemySpawner>();
                 enemySpawner = Instantiate(enemySpawnerGreen).GetComponent<EnemySpawner>();
                 currentLevel++;
                 break;

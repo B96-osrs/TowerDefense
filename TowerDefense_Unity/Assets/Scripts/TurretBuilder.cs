@@ -3,14 +3,15 @@ using UnityEngine.Tilemaps;
 
 public class TurretBuilder : MonoBehaviour
 {
-    private Vector3Int mousePosition = new Vector3Int(0, 0, 0);
     public Tilemap tilemap;
     public GameObject basicTurret;
     public GameObject speedTurret;
     public GameObject megaTurret;
     private GameObject turretPrefab;
-    private int turretPrefabCost;
     private GameObject GameManager;
+
+    private Vector3Int mousePosition = new Vector3Int(0, 0, 0);
+    private int turretPrefabCost;
     void Start()
     {
         GameManager = GameObject.Find("GameManager");
@@ -30,6 +31,7 @@ public class TurretBuilder : MonoBehaviour
         }
     }
 
+    //returns the mouse position in tilemap coordinates
     Vector3Int GetMousePosition()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -44,22 +46,20 @@ public class TurretBuilder : MonoBehaviour
         {
             if (tilemap.WorldToCell(turret.transform.position) == mousePosition)
             {
-                Debug.Log("Turret already exists here");
                 return false;
             }
         }
-        Debug.Log("No turret here");
         return true;
     }
 
     public void SelectBasicTurret()
     {
-        if(GameManager.GetComponent<GameManager>().money >= 500)
+        if (GameManager.GetComponent<GameManager>().money >= 500)
         {
             turretPrefab = basicTurret;
             turretPrefabCost = 500;
         }
-        
+
     }
 
     public void SelectSpeedTurret()
@@ -69,7 +69,7 @@ public class TurretBuilder : MonoBehaviour
             turretPrefab = speedTurret;
             turretPrefabCost = 1200;
         }
-        
+
     }
 
     public void SelectMegaTurret()

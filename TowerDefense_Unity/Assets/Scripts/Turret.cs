@@ -3,14 +3,18 @@ using UnityEditor;
 
 public class Turret : MonoBehaviour
 {
-    public Transform turretRotationPoint;
+    public float fireRate = 1f;
     public float targetRange = 3f;
+
+    private float timeUntilFire;
+
+    public Transform turretRotationPoint;
     private Transform target;
-    public LayerMask enemyMask;
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float fireRate = 1f;
-    private float timeUntilFire;
+    public LayerMask enemyMask;
+
+
 
 
 
@@ -23,14 +27,15 @@ public class Turret : MonoBehaviour
         }
 
         RotateTurret();
-        
+
         if (!CheckTargetIsInRange())
         {
             target = null;
-        } else
+        }
+        else
         {
             timeUntilFire += Time.deltaTime;
-            if(timeUntilFire >= fireRate)
+            if (timeUntilFire >= fireRate)
             {
                 Fire();
                 timeUntilFire = 0f;
@@ -50,8 +55,6 @@ public class Turret : MonoBehaviour
     private void FindTarget()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetRange, (Vector2)transform.position, 0f, enemyMask);
-
-
         if (hits.Length > 0)
         {
             target = hits[0].transform;
@@ -70,9 +73,6 @@ public class Turret : MonoBehaviour
     {
         return Vector2.Distance(transform.position, target.position) <= targetRange;
     }
-
-
-
 
     private void OnDrawGizmosSelected()
     {

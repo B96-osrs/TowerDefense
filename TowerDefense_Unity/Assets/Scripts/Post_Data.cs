@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class Post_Data : MonoBehaviour
 {
+    // Posts game data to the server
+    // The server should be running on localhost:5000, endpoint /add_game
     public IEnumerator Upload(int play_time_seconds, int coins_spent, int max_level_reached, int enemies_killed)
     {
         GameData data = new GameData
@@ -16,8 +18,6 @@ public class Post_Data : MonoBehaviour
         };
 
         string jsonString = JsonUtility.ToJson(data);
-
-
         using (UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:5000/add_game", jsonString, "application/json"))
         {
             yield return www.SendWebRequest();

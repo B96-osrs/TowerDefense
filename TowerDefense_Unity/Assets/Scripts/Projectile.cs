@@ -19,6 +19,8 @@ public class Projectile : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
+    // Called when the projectile collides with another object
+    // takeDamage method is called on the enemy
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(!target) return;
@@ -46,11 +48,6 @@ public class Projectile : MonoBehaviour
         {
             target.GetComponent<Enemy_A_Star>().takeDamage((int)damage);
             Debug.Log("Hit enemy AStar");
-        }
-        else if (target.GetComponent<Enemy_AI>() != null)
-        {
-            target.GetComponent<Enemy_AI>().takeDamage((int)damage);
-            Debug.Log("Hit Enemy_AI");
         }
         Destroy(gameObject);
     }

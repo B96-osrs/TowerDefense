@@ -91,7 +91,7 @@ public class Enemy_AI : MonoBehaviour
 
         var requestPayload = new
         {
-            model = "qwen3:0.6b",
+            model = "qwen3:4b",
             prompt = $"Given the following maze data from a maze made in Unity with a tilemap:\n{mazeJson}\nFind the shortest path from start to end, avoiding turrets if there are any. Return the path as a JSON array of coordinate objects like {{\"x\":0,\"y\":0}}.",
             stream = false
         };
@@ -131,6 +131,7 @@ public class Enemy_AI : MonoBehaviour
 
     void ProcessPathFromOllamaResponse(string jsonResponse)
     {
+        Debug.Log("Processing response: " + jsonResponse);
         try
         {
             JObject outer = JObject.Parse(jsonResponse);

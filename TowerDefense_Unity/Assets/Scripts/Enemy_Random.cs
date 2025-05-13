@@ -7,21 +7,27 @@ using UnityEngine.Tilemaps;
 
 public class Enemy_Random : MonoBehaviour
 {
+    // Public configuration variables
     public int maxHealth;
     public int killMoney;
-    private int health;
+    public float moveDelay = 1.0f;
+    public float moveSpeed = 2f;
     public Tilemap tilemap;
     public GameObject enemy;
-    public float moveDelay = 1.0f;
+
+    // Private state and pathfinding variables
+    private int health;
+    private Vector3 targetPosition;
+    private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
+    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
+    private Vector3Int currentNode = new Vector3Int(-9, 3, 0);
+    private Vector3Int previousNode = new Vector3Int(-11, 3, 0);
+    private bool startLineCrossed = false;
+
+    // Private reference variables
     private HealthBar healthBar;
     private GameObject GameManager;
-    Vector3 targetPosition;
-    public float moveSpeed = 2f;
-    private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
-    private Vector3Int startTilePosition = new Vector3Int(-9, 3, 0);
-    private Vector3Int previousNode = new Vector3Int(-11, 3, 0);
-    private Vector3Int currentNode = new Vector3Int(-9, 3, 0);
-    private bool startLineCrossed = false;
+
 
     void Start()
     {

@@ -4,10 +4,12 @@ using UnityEngine.Tilemaps;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    private int amountOfEnemies;
     public int maxEnemies;
     public float spawnRate;
+
+    private int amountOfEnemies;
     private float timer = 0;
+
     private Tilemap tilemap;
 
     void Start()

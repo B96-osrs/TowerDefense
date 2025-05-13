@@ -15,13 +15,9 @@ public class HealthBar : MonoBehaviour
 
     public void SetHealth(float health, float maxHealth)
     {
-        Debug.Log("Slider GameObject Path: " + slider.gameObject.transform.GetHierarchyPath());
-        Debug.Log("SetHealth called with health: " + health + " and maxHealth: " + maxHealth);
         slider.gameObject.SetActive(health < maxHealth);
         slider.maxValue = maxHealth;
-        Debug.Log("Slider BEFORE setting value: maxValue = " + slider.maxValue);
         slider.value = health;
-        Debug.Log("Slider value: " + slider.value + " and maxValue: " + slider.maxValue);
         slider.fillRect.GetComponentInChildren<UnityEngine.UI.Image>().color = Color.Lerp(low, high, slider.normalizedValue);
     }
 }
