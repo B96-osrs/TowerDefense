@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 public class TilemapEditor : MonoBehaviour
 {
     private Vector3Int mouseTilemapPosition = new Vector3Int(0, 0, 0);
+
     public RuleTile wallTile;
     public Tilemap tilemap;
     private GameObject GameManager;

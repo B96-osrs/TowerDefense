@@ -9,6 +9,7 @@ using System.Net;
 
 public class Get_Data : MonoBehaviour
 {
+
     [System.Serializable]
     public struct APIEndpoint
     {
