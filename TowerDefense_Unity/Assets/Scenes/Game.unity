@@ -4887,6 +4887,7 @@ MonoBehaviour:
   basicTurret: {fileID: 332079832682224616, guid: 771f7d0e7d27a7841955504cc6cc3da3, type: 3}
   speedTurret: {fileID: 1111337333044304177, guid: 502212f858ca507489f28ff1e3465456, type: 3}
   megaTurret: {fileID: 332079832682224616, guid: 41fd821e318ce6146aef67e7ebe7f39f, type: 3}
+  dangerTile: {fileID: 11400000, guid: fa57ad1a0d5a86a4a8a95e2371e8dd94, type: 2}
 --- !u!1 &921565357
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.GraphicsBuffer;
 
 //this script is used to let the user place tiles on the map
 //while the game is running
@@ -41,6 +45,21 @@ public class TilemapEditor : MonoBehaviour
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return tilemap.WorldToCell(mouseWorldPosition);
     }
+
+
+    public void MakeTileRedder(Vector3Int position)
+    {
+        Color currentColor = tilemap.GetColor(position);
+        if (currentColor == default(Color)) currentColor = Color.white;
+
+        float newR = Mathf.Min(currentColor.r * 1.5f, 1f);  // increase red
+        float newG = currentColor.g * 0.85f;                 // reduce green
+        float newB = currentColor.b * 0.85f;                 // reduce blue
+
+        Color newColor = new Color(newR, newG, newB, currentColor.a);
+        tilemap.SetColor(position, newColor);
+    }
+
 
 
 

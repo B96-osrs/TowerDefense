@@ -1,6 +1,9 @@
 using System;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.GraphicsBuffer;
 
 public class TurretBuilder : MonoBehaviour
 {
@@ -8,6 +11,10 @@ public class TurretBuilder : MonoBehaviour
     public GameObject basicTurret;
     public GameObject speedTurret;
     public GameObject megaTurret;
+    public RuleTile dangerTile;
+
+
+
     private GameObject turretPrefab;
     private GameObject GameManager;
 
@@ -25,16 +32,27 @@ public class TurretBuilder : MonoBehaviour
         TileBase tile = tilemap.GetTile(mousePosition);
 
         //check if the mouse is clicked and the turret prefab is selected and the tile is a wall tile and the tile does not already have a cannon
-
         if (Input.GetMouseButtonDown(0) && tileIsEmpty(mousePosition) && tile != null && tile.name == "Wall_Tile" && turretPrefab != null)
         {
-            Instantiate(turretPrefab, tilemap.GetCellCenterWorld(mousePosition), Quaternion.identity);
+            GameObject newTurret = Instantiate(turretPrefab, tilemap.GetCellCenterWorld(mousePosition), Quaternion.identity);
             GameManager.GetComponent<GameManager>().money -= turretPrefabCost;
             GameManager.GetComponent<GameManager>().moneySpent += turretPrefabCost;
             OnTurretPlaced?.Invoke();
             turretPrefab = null;
+            foreach (var position in tilemap.cellBounds.allPositionsWithin)
+            {
+                TileBase currentTile = tilemap.GetTile(position);
+                if (position != null && currentTile != null && currentTile.name == "White_Tile_0")
+                {
+                    if (newTurret.GetComponent<Turret>().isInRange(position))
+                    {
+                        Debug.Log("changing color");
+                        tilemap.GetComponent<TilemapEditor>().MakeTileRedder(position);
+                        tilemap.RefreshTile(position);
+                    }
+                }
+            }
         }
-
     }
     //returns the mouse position in tilemap coordinates
     Vector3Int GetMousePosition()
@@ -85,4 +103,10 @@ public class TurretBuilder : MonoBehaviour
             turretPrefabCost = 2500;
         }
     }
+
+
+
+
+
+
 }
