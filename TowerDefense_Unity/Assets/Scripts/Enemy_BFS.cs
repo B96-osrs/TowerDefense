@@ -58,10 +58,10 @@ public class Enemy_BFS : MonoBehaviour
         TilemapEditor.OnTilePlaced -= HandleTilePlaced;
     }
 
-    void HandleTilePlaced(Vector3Int position)
+    void HandleTilePlaced()
     {
         findPathBFS();
-        Debug.Log("Tilemap raised event: " + position);
+        Debug.Log("Tilemap raised event" );
 
     }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,6 +13,8 @@ public class TurretBuilder : MonoBehaviour
 
     private Vector3Int mousePosition = new Vector3Int(0, 0, 0);
     private int turretPrefabCost;
+
+    public static event Action OnTurretPlaced;
     void Start()
     {
         GameManager = GameObject.Find("GameManager");
@@ -22,15 +25,17 @@ public class TurretBuilder : MonoBehaviour
         TileBase tile = tilemap.GetTile(mousePosition);
 
         //check if the mouse is clicked and the turret prefab is selected and the tile is a wall tile and the tile does not already have a cannon
-        if (Input.GetMouseButtonDown(0) && turretPrefab != null && tile.name == "Wall_Tile" && tileIsEmpty(mousePosition))
+
+        if (Input.GetMouseButtonDown(0) && tileIsEmpty(mousePosition) && tile != null && tile.name == "Wall_Tile" && turretPrefab != null)
         {
             Instantiate(turretPrefab, tilemap.GetCellCenterWorld(mousePosition), Quaternion.identity);
             GameManager.GetComponent<GameManager>().money -= turretPrefabCost;
             GameManager.GetComponent<GameManager>().moneySpent += turretPrefabCost;
+            OnTurretPlaced?.Invoke();
             turretPrefab = null;
         }
-    }
 
+    }
     //returns the mouse position in tilemap coordinates
     Vector3Int GetMousePosition()
     {

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEditor;
+using System;
+using UnityEngine.Tilemaps;
 
 public class Turret : MonoBehaviour
 {
@@ -13,8 +15,20 @@ public class Turret : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform firePoint;
     public LayerMask enemyMask;
+    private Tilemap tilemap;
 
 
+    private void Awake()
+    {
+        if (tilemap == null)
+        {
+            tilemap = GameObject.FindAnyObjectByType<Tilemap>();
+            if (tilemap == null)
+            {
+                Debug.LogError("No Tilemap found (Turret.cs)");
+            }
+        }
+    }
 
 
 
@@ -80,4 +94,8 @@ public class Turret : MonoBehaviour
         Handles.DrawWireDisc(transform.position, transform.forward, targetRange);
     }
 
+    public bool isInRange(Vector3Int tilePos)
+    {
+        return Vector2.Distance(transform.position, tilemap.CellToWorld(tilePos)) <= targetRange;
+    }
 }

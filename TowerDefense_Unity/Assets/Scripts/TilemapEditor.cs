@@ -14,7 +14,7 @@ public class TilemapEditor : MonoBehaviour
     public Tilemap tilemap;
     private GameObject GameManager;
 
-    public static event Action<Vector3Int> OnTilePlaced;
+    public static event Action OnTilePlaced;
     void Start()
     {
         GameManager = GameObject.Find("GameManager");
@@ -26,11 +26,12 @@ public class TilemapEditor : MonoBehaviour
         TileBase tile = tilemap.GetTile(mouseTilemapPosition);
 
         //places a tile if the chosen position is valid and user has available block tiles
-        if (Input.GetMouseButtonDown(0) && tile.name == "Block_Tile" && GameManager.GetComponent<GameManager>().blockTilesAvailable >= 1)
+        if (Input.GetMouseButtonDown(0) && tile != null && tile.name == "Block_Tile" 
+            && GameManager.GetComponent<GameManager>().blockTilesAvailable >= 1)
         {
             tilemap.SetTile(mouseTilemapPosition, null);
             tilemap.SetTile(mouseTilemapPosition, wallTile);
-            OnTilePlaced?.Invoke(mouseTilemapPosition);
+            OnTilePlaced?.Invoke();
             GameManager.GetComponent<GameManager>().blockTilesAvailable--;
         }
     }

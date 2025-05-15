@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 
 public class Enemy_A_Star : MonoBehaviour
@@ -52,19 +53,20 @@ public class Enemy_A_Star : MonoBehaviour
     //Eventhandler calculates path again when a tile is placed
     void OnEnable()
     {
-        TilemapEditor.OnTilePlaced += HandleTilePlaced;
+        TilemapEditor.OnTilePlaced += HandleTilemapEvent;
+        TurretBuilder.OnTurretPlaced += HandleTilemapEvent;
     }
 
     void OnDisable()
     {
-        TilemapEditor.OnTilePlaced -= HandleTilePlaced;
+        TilemapEditor.OnTilePlaced -= HandleTilemapEvent;
+        TurretBuilder.OnTurretPlaced -= HandleTilemapEvent;
     }
 
-    void HandleTilePlaced(Vector3Int position)
+    void HandleTilemapEvent()
     {
         Traverse();
-        Debug.Log("Tilemap raised event: " + position);
-
+        Debug.Log("Tilemap raised event");
     }
 
     private void moveEnemy()
@@ -127,7 +129,7 @@ public class Enemy_A_Star : MonoBehaviour
             {
                 child.parent = currentNode; //set parent of child to current node
                 child.hCost = Mathf.Abs(child.position.x - endTilePosition.x) + Mathf.Abs(child.position.y - endTilePosition.y); //Manhattan distance
-                child.gCost = currentNode.gCost + 1; //in our maze the cost of moving to a neighbour is always 1
+                child.gCost = currentNode.gCost + calculateGCost(child); //in our maze the cost of moving to a neighbour is always 1
 
                 if (containsNode(openList, child))
                 {
@@ -247,6 +249,21 @@ public class Enemy_A_Star : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private int calculateGCost(Node node)
+    {
+        int gCost = 1;
+
+        GameObject[] turretList = GameObject.FindGameObjectsWithTag("Turret");
+        foreach (GameObject turret in turretList)
+        {
+            if (turret.GetComponent<Turret>().isInRange(node.position))
+            {
+                gCost += 5; //if turret is in range , increase cost to 5
+            }
+        }
+        return gCost;
     }
 
 }

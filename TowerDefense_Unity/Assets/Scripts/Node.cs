@@ -13,6 +13,7 @@ public class Node
         this.position = position;
         this.parent = parent;
     }
+
     override
     public String ToString()
     {
