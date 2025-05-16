@@ -68,7 +68,7 @@ public class Turret : MonoBehaviour
 
     private void FindTarget()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, targetRange, (Vector2)transform.position, 0f, enemyMask);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, targetRange, enemyMask);
         if (hits.Length > 0)
         {
             target = hits[0].transform;
@@ -85,6 +85,7 @@ public class Turret : MonoBehaviour
 
     private bool CheckTargetIsInRange()
     {
+        // Check if the target is within range, specifically the tile center on which the enemy is
         return Vector2.Distance(transform.position, target.position) <= targetRange;
     }
 
@@ -94,8 +95,17 @@ public class Turret : MonoBehaviour
         Handles.DrawWireDisc(transform.position, transform.forward, targetRange);
     }
 
-    public bool isInRange(Vector3Int tilePos)
+    public bool isInRange(Vector3Int tilePosition)
     {
-        return Vector2.Distance(transform.position, tilemap.CellToWorld(tilePos)) <= targetRange;
+        //A regular Vector2.Distance has rounding errors and did not color the tiles correctly
+        Vector3 turretCenter = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
+        Vector3 tileCenter = tilemap.GetCellCenterWorld(tilePosition);
+
+        float distanceSquared = (turretCenter - tileCenter).sqrMagnitude;
+        float rangeSquared = targetRange * targetRange;
+        //Debug.Log("Turret Center: " + turretCenter + " | Tile Center: " + tileCenter + " | Distance: " + Mathf.Sqrt(distanceSquared));
+        return distanceSquared <= rangeSquared;
     }
+
+
 }

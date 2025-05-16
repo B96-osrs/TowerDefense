@@ -15,7 +15,7 @@ public class Enemy_Right_Only : MonoBehaviour
 
     // Private state and pathfinding variables
     private int health;
-    private Vector3Int currentNode = new Vector3Int(-10, 3, 0);
+    private Vector3Int currentNode = new Vector3Int(1, 0, 0);
     private Vector3Int endTilePosition = new Vector3Int(9, -3, 0);
     private String direction = "right";
     private Vector3 targetPosition;

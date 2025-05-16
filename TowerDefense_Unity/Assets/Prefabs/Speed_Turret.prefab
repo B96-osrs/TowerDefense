@@ -83,14 +83,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c62102c1f139a949943eea011697434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0.5
+  targetRange: 3.5
   turretRotationPoint: {fileID: 5685753724505822767}
-  targetRange: 4
+  projectilePrefab: {fileID: 5029234132514747267, guid: 26bff5b0f9b55874b825997bbaf371bc, type: 3}
+  firePoint: {fileID: 2100658205285270742}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  projectilePrefab: {fileID: 5029234132514747267, guid: 26bff5b0f9b55874b825997bbaf371bc, type: 3}
-  firePoint: {fileID: 2100658205285270742}
-  fireRate: 0.5
 --- !u!1 &3102116982718122050
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class Enemy_Random : MonoBehaviour
         healthBar.SetHealth(health, maxHealth);
         Debug.Log("EnemyMovement started");
         targetPosition = tilemap.GetCellCenterWorld(currentNode);
-        InvokeRepeating("takeDamageOverTime", 60f, 3f);
+        InvokeRepeating("takeDamageOverTime", 30f, 3f);
     }
     void Update()
     {

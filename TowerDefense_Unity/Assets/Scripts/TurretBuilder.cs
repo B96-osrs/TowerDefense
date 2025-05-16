@@ -41,12 +41,14 @@ public class TurretBuilder : MonoBehaviour
             turretPrefab = null;
             foreach (var position in tilemap.cellBounds.allPositionsWithin)
             {
+                
                 TileBase currentTile = tilemap.GetTile(position);
                 if (position != null && currentTile != null && currentTile.name == "White_Tile_0")
                 {
+
                     if (newTurret.GetComponent<Turret>().isInRange(position))
                     {
-                        Debug.Log("changing color");
+                        //Debug.Log("tile in range: " + position + "Distance: " + Vector2.Distance(tilemap.CellToWorld(mousePosition), tilemap.CellToWorld(position)));
                         tilemap.GetComponent<TilemapEditor>().MakeTileRedder(position);
                         tilemap.RefreshTile(position);
                     }
